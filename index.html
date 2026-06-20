@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luna stay Monnzennakacho - House Guide</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --text-sub: #666;
+    --accent: #2d2d2d;
+    --accent-light: #f0f0f0;
+    --border: #e8e8e8;
+    --neon: #d4af37;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --link: #1a73e8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--link); text-decoration: underline; }
+  a:hover { opacity: 0.8; }
+
+  .hero { position: relative; height: 55vh; min-height: 340px; overflow: hidden; }
+  .hero img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    padding: 48px 24px 28px; color: #fff;
+  }
+  .hero-overlay h1 { font-size: 26px; font-weight: 700; letter-spacing: 0.5px; }
+  .hero-overlay .subtitle { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+  .hero-overlay .address {
+    font-size: 12px; opacity: 0.75; margin-top: 8px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .hero-overlay .address a { color: #fff; text-decoration: underline; }
+
+  .lang-bar {
+    display: flex; justify-content: center; gap: 8px;
+    padding: 10px 16px; background: var(--accent);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .lang-btn {
+    background: transparent; color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 14px; border-radius: 20px;
+    font-size: 13px; cursor: pointer; transition: all 0.2s;
+  }
+  .lang-btn.active { background: #fff; color: var(--accent); border-color: #fff; font-weight: 600; }
+
+  .nav {
+    display: flex; overflow-x: auto; gap: 6px;
+    padding: 10px 16px; background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 42px; z-index: 99;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    white-space: nowrap; padding: 7px 13px; border-radius: 20px;
+    font-size: 12px; text-decoration: none; color: var(--text-sub);
+    background: var(--accent-light); transition: all 0.2s; flex-shrink: 0;
+  }
+  .nav a:hover { background: var(--accent); color: #fff; text-decoration: none; }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0 16px 80px; }
+
+  .section { margin-top: 32px; }
+  .section-title {
+    font-size: 19px; font-weight: 700; padding-bottom: 8px;
+    margin-bottom: 16px; border-bottom: 2px solid var(--neon);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .icon { font-size: 22px; }
+
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px;
+  }
+  .card-header {
+    padding: 14px 18px; font-weight: 600; font-size: 15px;
+    background: var(--accent-light); display: flex; align-items: center; gap: 8px;
+  }
+  .item-heading {
+    margin: 28px 0 12px; padding: 8px 14px; font-size: 14px; font-weight: 700;
+    color: var(--neon); border-bottom: 2px solid var(--neon);
+    background: transparent; letter-spacing: 0.5px;
+  }
+  .item-heading:first-child { margin-top: 0; }
+  .card-body { padding: 18px; }
+  .card-body p { margin-bottom: 8px; color: var(--text-sub); font-size: 14px; }
+
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .info-box { background: var(--accent-light); border-radius: 10px; padding: 16px; text-align: center; }
+  .info-box .label { font-size: 11px; color: var(--text-sub); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+  .info-box .value { font-size: 20px; font-weight: 700; }
+
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+  .photo-grid.single { grid-template-columns: 1fr; }
+  .photo-grid img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+  .photo-grid.single img { height: 220px; }
+
+  .steps { counter-reset: step; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: step; display: flex; gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px; align-items: flex-start;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step); background: var(--accent); color: #fff;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-content .main { color: var(--text); }
+  .step-content .sub { font-size: 12px; color: var(--text-sub); margin-top: 3px; line-height: 1.5; }
+
+  .guide-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; }
+  .guide-table th { background: var(--accent); color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 13px; }
+  .guide-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .guide-table tr:last-child td { border-bottom: none; }
+
+  .trash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 12px 0; }
+  .trash-bin { background: var(--accent-light); border-radius: 10px; padding: 12px 8px; text-align: center; }
+  .trash-bin .bin-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; padding-bottom: 5px; border-bottom: 2px solid var(--border); }
+  .trash-bin .bin-title.burnable { border-color: #e74c3c; }
+  .trash-bin .bin-title.non-burnable { border-color: #3498db; }
+  .trash-bin ul { list-style: none; font-size: 11px; color: var(--text-sub); text-align: left; padding-left: 2px; }
+  .trash-bin ul li { padding: 2px 0; }
+
+  .warning {
+    background: #fff8e1; border-left: 4px solid #f9a825;
+    padding: 12px 16px; border-radius: 0 8px 8px 0;
+    margin: 12px 0; font-size: 13px; color: #5d4037;
+  }
+  .info-note {
+    background: #e8f4fd; border-left: 4px solid #1a73e8;
+    padding: 12px 16px; border-radius: 0 8px 8px 0;
+    margin: 12px 0; font-size: 13px; color: #1a3a5c;
+  }
+
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: ''; width: 20px; height: 20px;
+    border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0;
+  }
+
+  .wifi-box {
+    background: linear-gradient(135deg, #2d2d2d, #444);
+    color: #fff; border-radius: var(--radius); padding: 24px; text-align: center; margin: 12px 0;
+  }
+  .wifi-box .wifi-icon { font-size: 32px; margin-bottom: 6px; }
+  .wifi-box .wifi-label { font-size: 11px; opacity: 0.6; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+  .wifi-box .wifi-value {
+    font-size: 20px; font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace;
+    letter-spacing: 1px; background: rgba(255,255,255,0.15);
+    padding: 6px 16px; border-radius: 8px; display: inline-block; margin-top: 4px;
+  }
+  .wifi-row { margin-top: 14px; }
+
+  .place-list { list-style: none; padding: 0; }
+  .place-list li {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px;
+  }
+  .place-list li:last-child { border-bottom: none; }
+  .place-name { font-weight: 500; }
+  .place-name a { color: #1a73e8 !important; text-decoration: underline !important; }
+  .place-dist { font-size: 11px; color: var(--text-sub); background: var(--accent-light); padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
+
+  .emergency-grid { display: grid; gap: 10px; margin: 12px 0; }
+  .emergency-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--accent-light); padding: 14px 16px; border-radius: 10px;
+  }
+  .emergency-item .em-icon { font-size: 22px; }
+  .emergency-item .em-label { font-size: 12px; color: var(--text-sub); }
+  .emergency-item .em-value { font-size: 15px; font-weight: 600; }
+  .emergency-item .em-value a { color: #1a73e8; text-decoration: underline; }
+  .transit-item a.dest { color: #1a73e8 !important; text-decoration: underline !important; }
+
+  .transit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 8px 0; }
+  .transit-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px; background: var(--accent-light); border-radius: 8px; font-size: 13px;
+  }
+  .transit-item .dest { font-weight: 600; }
+  .transit-item .time { font-size: 12px; color: var(--text-sub); }
+  .transit-item.highlight { background: #fff8e1; border: 1px solid #f9a825; }
+
+  .restaurant-card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); overflow: hidden; margin-bottom: 12px;
+    padding: 16px;
+  }
+  .restaurant-card .r-name { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+  .restaurant-card .r-genre { font-size: 12px; color: var(--text-sub); margin-bottom: 6px; }
+  .restaurant-card .r-desc { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+  .restaurant-card .r-link { font-size: 12px; margin-top: 8px; display: inline-block; }
+
+  .taxi-table { width: 100%; font-size: 13px; border-collapse: collapse; }
+  .taxi-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .taxi-table td:last-child { text-align: right; font-weight: 600; }
+
+  .access-photo-steps { margin: 16px 0; }
+  .access-photo-step {
+    margin-bottom: 16px; border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow); background: var(--card);
+  }
+  .access-photo-step .access-label {
+    padding: 10px 16px; font-size: 14px; font-weight: 600;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .access-photo-step .access-label .access-num {
+    background: var(--neon); color: var(--accent); width: 24px; height: 24px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .access-photo-step img {
+    width: 100%; display: block;
+    filter: brightness(1.2) saturate(1.4) contrast(1.1);
+  }
+  .access-photo-step.vivid img {
+    filter: brightness(0.92) saturate(0.8) contrast(0.95);
+  }
+  .access-photo-step.alt .access-label {
+    background: #4a6741;
+  }
+  .access-photo-step.alt .access-label .access-num {
+    background: #8cb878; color: #fff;
+  }
+
+  .photo-placeholder {
+    background: var(--accent-light); border: 2px dashed var(--border);
+    border-radius: 8px; padding: 32px 20px; text-align: center;
+    color: var(--text-sub); font-size: 13px; margin: 12px 0;
+  }
+
+  details { margin: 8px 0; }
+  details summary {
+    cursor: pointer; font-weight: 600; font-size: 14px;
+    padding: 12px 16px; background: var(--accent-light);
+    border-radius: 8px; list-style: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: '▶'; font-size: 10px; transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] summary { border-radius: 8px 8px 0 0; }
+  details .details-content { padding: 16px; background: var(--card); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; }
+
+  [data-lang] { display: none; }
+  [data-lang="ja"] { display: block; }
+  span[data-lang="ja"], a[data-lang="ja"] { display: inline; }
+
+  .footer {
+    text-align: center; padding: 32px 16px; color: var(--text-sub);
+    font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px;
+  }
+
+  @media (min-width: 768px) {
+    .hero { height: 45vh; }
+    .hero-overlay h1 { font-size: 34px; }
+    .container { padding: 0 24px 80px; }
+  }
+  @media (max-width: 400px) {
+    .transit-grid { grid-template-columns: 1fr; }
+    .trash-grid { grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+    .trash-bin { padding: 10px 4px; }
+    .trash-bin ul { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <img src="images/living-dining-wide.jpg" alt="Luna stay Monnzennakacho">
+  <div class="hero-overlay">
+    <h1>Luna stay Monnzennakacho</h1>
+    <p class="subtitle">Welcome to your home in Tokyo</p>
+    <p class="address">
+      <a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">
+        Tokyo, Koto-ku, Eitai 2-1-5 SCS EITAI RESIDENCE 401
+      </a>
+    </p>
+  </div>
+</div>
+
+<!-- Language -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('ja')">JP</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('ko')">KR</button>
+  <button class="lang-btn" onclick="setLang('zh')">CN</button>
+  <button class="lang-btn" onclick="setLang('tw')">TW</button>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="#checkin">Check-in</a>
+  <a href="#access">Access</a>
+  <a href="#key">Key</a>
+  <a href="#rooms">Rooms</a>
+  <a href="#steam-iron">Iron</a>
+  <a href="#ac-remote">Remotes</a>
+  <a href="#wifi">Wi-Fi</a>
+  <a href="#trash">Trash</a>
+  <a href="#trouble">Trouble</a>
+  <a href="#shops">Shops</a>
+  <a href="#restaurants">Restaurants</a>
+  <a href="#transit">Transit</a>
+  <a href="#luggage">Luggage</a>
+  <a href="#rules">Rules</a>
+  <a href="#checkout">Check-out</a>
+  <a href="#emergency">Emergency</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== CHECK-IN ==================== -->
+  <section id="checkin" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f3e0;</span>
+      <span data-lang="ja">Check-in / Check-out</span>
+      <span data-lang="en">Check-in / Check-out</span>
+      <span data-lang="ko">Check-in / Check-out</span>
+      <span data-lang="zh">Check-in / Check-out</span>
+      <span data-lang="tw">Check-in / Check-out</span>
+    </h2>
+    <div class="info-grid">
+      <div class="info-box">
+        <div class="label">Check-in</div>
+        <div class="value">16:00~</div>
+      </div>
+      <div class="info-box">
+        <div class="label">Check-out</div>
+        <div class="value">~10:00</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <p data-lang="ja">&#x1f4cd; <strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">東京都江東区永代2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="en">&#x1f4cd; <strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">2-1-5 Eitai, Koto-ku, Tokyo - SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="ko">&#x1f4cd; <strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">도쿄도 고토구 에이타이 2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="zh">&#x1f4cd; <strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">东京都江东区永代2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="tw">&#x1f4cd; <strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">東京都江東區永代2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="ja" style="font-size:13px;">&#x1f686; 最寄駅: 東京メトロ東西線 / 都営大江戸線 <strong>門前仲町駅</strong>（徒歩7分）</p>
+        <p data-lang="en" style="font-size:13px;">&#x1f686; Nearest: Tokyo Metro Tozai / Toei Oedo Line <strong>Monzennakacho Sta.</strong> (7 min walk)</p>
+        <p data-lang="ko" style="font-size:13px;">&#x1f686; 최근역: 도쿄 메트로 토자이선 / 도에이 오에도선 <strong>몬젠나카초역</strong> (도보 7분)</p>
+        <p data-lang="zh" style="font-size:13px;">&#x1f686; 最近站: 东京Metro东西线 / 都营大江户线 <strong>门前仲町站</strong>（步行7分钟）</p>
+        <p data-lang="tw" style="font-size:13px;">&#x1f686; 最近站: 東京Metro東西線 / 都營大江戶線 <strong>門前仲町站</strong>（步行7分鐘）</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ACCESS ==================== -->
+  <section id="access" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f4cd;</span>
+      <span data-lang="ja">アクセス</span>
+      <span data-lang="en">Access</span>
+      <span data-lang="ko">오시는 길</span>
+      <span data-lang="zh">交通指南</span>
+      <span data-lang="tw">交通指南</span>
+    </h2>
+
+    <!-- Airport -->
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x2708;&#xfe0f; 空港からのアクセス</span>
+        <span data-lang="en">&#x2708;&#xfe0f; From the Airport</span>
+        <span data-lang="ko">&#x2708;&#xfe0f; 공항에서</span>
+        <span data-lang="zh">&#x2708;&#xfe0f; 从机场出发</span>
+        <span data-lang="tw">&#x2708;&#xfe0f; 從機場出發</span>
+      </div>
+      <div class="card-body">
+        <table class="guide-table">
+          <tbody>
+            <tr data-lang="ja">
+              <td>&#x1f683; <strong>羽田空港</strong></td>
+              <td>電車で<strong>45〜50分</strong>（乗換1回）</td>
+            </tr>
+            <tr data-lang="ja">
+              <td>&#x1f683; <strong>成田空港</strong></td>
+              <td>電車で<strong>70〜100分</strong>（乗換1回）</td>
+            </tr>
+            <tr data-lang="en">
+              <td>&#x1f683; <strong>Haneda</strong></td>
+              <td><strong>45-50 min</strong> by train (1 transfer)</td>
+            </tr>
+            <tr data-lang="en">
+              <td>&#x1f683; <strong>Narita</strong></td>
+              <td><strong>70-100 min</strong> by train (1 transfer)</td>
+            </tr>
+            <tr data-lang="ko">
+              <td>&#x1f683; <strong>하네다</strong></td>
+              <td>전철 <strong>45~50분</strong> (환승 1회)</td>
+            </tr>
+            <tr data-lang="ko">
+              <td>&#x1f683; <strong>나리타</strong></td>
+              <td>전철 <strong>70~100분</strong> (환승 1회)</td>
+            </tr>
+            <tr data-lang="zh">
+            <tr data-lang="tw">
+              <td>&#x1f683; <strong>羽田</strong></td>
+              <td>电车<strong>45~50分钟</strong>（换乘1次）</td>
+            </tr>
+            <tr data-lang="zh">
+            <tr data-lang="tw">
+              <td>&#x1f683; <strong>成田</strong></td>
+              <td>电车<strong>70~100分钟</strong>（换乘1次）</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-note" data-lang="ja">
+          &#x1f4a1; 複数の行き方があり時間帯により異なります。Googleマップの乗換案内をご確認ください。
+        </div>
+        <div class="info-note" data-lang="en">
+          &#x1f4a1; Multiple routes available. Check Google Maps for the best route.
+        </div>
+        <div class="info-note" data-lang="ko">
+          &#x1f4a1; 여러 경로가 있습니다. 구글 맵에서 최적 경로를 확인하세요.
+        </div>
+        <div class="info-note" data-lang="zh">
+        <div class="info-note" data-lang="tw">
+          &#x1f4a1; 有多条路线可选，请查看Google Maps获取最佳路线。
+        </div>
+      </div>
+    </div>
+
+    <!-- Station to property -->
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x1f6b6; 門前仲町駅からの道順（徒歩7分）</span>
+        <span data-lang="en">&#x1f6b6; From Monzennakacho Sta. (7 min walk)</span>
+        <span data-lang="ko">&#x1f6b6; 몬젠나카초역에서 (도보 7분)</span>
+        <span data-lang="zh">&#x1f6b6; 从门前仲町站出发（步行7分钟）</span>
+        <span data-lang="tw">&#x1f6b6; 從門前仲町站出發（步行7分鐘）</span>
+      </div>
+      <div class="card-body">
+        <div class="info-note" style="margin-bottom:12px;">
+          <span data-lang="ja">&#x1f4cd; <a href="https://www.google.com/maps?geocode=FeFPIAId6xxVCCkt5ZX3EokYYDHwjlcKRSFq4Q%3D%3D;Fc9RIAIdHAdVCCnVZIR3bIkYYDHDTa-GD5Va9w%3D%3D&daddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB&saddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%94+%E9%83%BD%E5%96%B6+%E5%A4%A7%E6%B1%9F%E6%88%B8%E7%B7%9A+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85&dirflg=w" target="_blank">Googleマップで経路を見る</a></span>
+          <span data-lang="en">&#x1f4cd; <a href="https://www.google.com/maps?geocode=FeFPIAId6xxVCCkt5ZX3EokYYDHwjlcKRSFq4Q%3D%3D;Fc9RIAIdHAdVCCnVZIR3bIkYYDHDTa-GD5Va9w%3D%3D&daddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB&saddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%94+%E9%83%BD%E5%96%B6+%E5%A4%A7%E6%B1%9F%E6%88%B8%E7%B7%9A+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85&dirflg=w" target="_blank">View route on Google Maps</a></span>
+          <span data-lang="ko">&#x1f4cd; <a href="https://www.google.com/maps?geocode=FeFPIAId6xxVCCkt5ZX3EokYYDHwjlcKRSFq4Q%3D%3D;Fc9RIAIdHAdVCCnVZIR3bIkYYDHDTa-GD5Va9w%3D%3D&daddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB&saddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%94+%E9%83%BD%E5%96%B6+%E5%A4%A7%E6%B1%9F%E6%88%B8%E7%B7%9A+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85&dirflg=w" target="_blank">Google Maps에서 경로 보기</a></span>
+          <span data-lang="zh">&#x1f4cd; <a href="https://www.google.com/maps?geocode=FeFPIAId6xxVCCkt5ZX3EokYYDHwjlcKRSFq4Q%3D%3D;Fc9RIAIdHAdVCCnVZIR3bIkYYDHDTa-GD5Va9w%3D%3D&daddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB&saddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%94+%E9%83%BD%E5%96%B6+%E5%A4%A7%E6%B1%9F%E6%88%B8%E7%B7%9A+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85&dirflg=w" target="_blank">在Google Maps上查看路线</a></span>
+          <span data-lang="tw">&#x1f4cd; <a href="https://www.google.com/maps?geocode=FeFPIAId6xxVCCkt5ZX3EokYYDHwjlcKRSFq4Q%3D%3D;Fc9RIAIdHAdVCCnVZIR3bIkYYDHDTa-GD5Va9w%3D%3D&daddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB&saddr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%94+%E9%83%BD%E5%96%B6+%E5%A4%A7%E6%B1%9F%E6%88%B8%E7%B7%9A+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85+%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%E9%A7%85&dirflg=w" target="_blank">在Google Maps上查看路線</a></span>
+        </div>
+        <div class="access-photo-steps">
+          <div class="access-photo-step">
+            <div class="access-label">
+              <span class="access-num">1</span>
+              <span data-lang="ja">改札を出て「出口4」の方向（右）へお進みください</span>
+              <span data-lang="en">After exiting the gate, please head right toward Exit 4</span>
+              <span data-lang="ko">개찰구를 나와 4번 출구 방향（오른쪽）으로 가주세요</span>
+              <span data-lang="zh">出检票口后，请向右前往4号出口方向</span>
+              <span data-lang="tw">出檢票口後，請向右前往4號出口方向</span>
+            </div>
+            <img src="images/access-01.jpg" alt="Exit gate toward Exit 4">
+          </div>
+          <div class="access-photo-step">
+            <div class="access-label">
+              <span class="access-num">2</span>
+              <span data-lang="ja">4番出口の階段またはエスカレーターで地上へお上がりください（エレベーターもございます）</span>
+              <span data-lang="en">Please go up to Exit 4 via the stairs or escalator (elevator is also available)</span>
+              <span data-lang="ko">4번 출구 계단 또는 에스컬레이터로 지상으로 올라가 주세요（엘리베이터도 있습니다）</span>
+              <span data-lang="zh">请从4号出口的楼梯或自动扶梯上到地面（也有电梯）</span>
+              <span data-lang="tw">請從4號出口的樓梯或自動扶梯上到地面（也有電梯）</span>
+            </div>
+            <img src="images/access-02.jpg" alt="Stairs and escalator to Exit 4">
+          </div>
+          <div class="access-photo-step vivid">
+            <div class="access-label">
+              <span class="access-num">3</span>
+              <span data-lang="ja">地上に出たら右を向き、さらに右方向へお進みください</span>
+              <span data-lang="en">Once at ground level, please face right and continue walking to the right</span>
+              <span data-lang="ko">지상에 나오시면 오른쪽을 보시고 계속 오른쪽으로 가주세요</span>
+              <span data-lang="zh">到地面后请向右看，继续向右走</span>
+              <span data-lang="tw">到地面後請向右看，繼續向右走</span>
+            </div>
+            <img src="images/access-03.jpg" alt="Turn right at ground level">
+          </div>
+          <div class="access-photo-step alt">
+            <div class="access-label">
+              <span class="access-num">EV</span>
+              <span data-lang="ja">エレベーターをご利用の場合：ビルを出たら右にお進みください。そのまま進むとみずほ銀行が見えてまいります</span>
+              <span data-lang="en">If using the elevator: please exit the building and turn right. Continue walking and you will see Mizuho Bank ahead</span>
+              <span data-lang="ko">엘리베이터를 이용하시는 경우: 건물을 나와 오른쪽으로 가주세요. 계속 가시면 미즈호 은행이 보입니다</span>
+              <span data-lang="zh">乘坐电梯的情况：出大楼后请向右走，继续前行即可看到瑞穗银行</span>
+              <span data-lang="tw">搭乘電梯的情況：出大樓後請向右走，繼續前行即可看到瑞穗銀行</span>
+            </div>
+            <img src="images/access-03-elevator.jpg" alt="Elevator exit with vending machines">
+          </div>
+          <div class="access-photo-step">
+            <div class="access-label">
+              <span class="access-num">4</span>
+              <span data-lang="ja">みずほ銀行の看板が見えましたら、目の前の横断歩道を渡り、約150mお進みください</span>
+              <span data-lang="en">When you see the Mizuho Bank sign, please cross the crosswalk ahead and walk about 150m</span>
+              <span data-lang="ko">미즈호 은행 간판이 보이시면 앞의 횡단보도를 건너 약 150m 직진해 주세요</span>
+              <span data-lang="zh">看到瑞穗银行招牌后，请过前方人行横道，直行约150米</span>
+              <span data-lang="tw">看到瑞穗銀行招牌後，請過前方人行橫道，直行約150米</span>
+            </div>
+            <img src="images/access-04.jpg" alt="Mizuho Bank landmark">
+          </div>
+          <div class="access-photo-step">
+            <div class="access-label">
+              <span class="access-num">5</span>
+              <span data-lang="ja">横断歩道を渡り、右にお曲がりください</span>
+              <span data-lang="en">Please cross the crosswalk and turn right</span>
+              <span data-lang="ko">횡단보도를 건너 오른쪽으로 돌아 주세요</span>
+              <span data-lang="zh">请过人行横道后右转</span>
+              <span data-lang="tw">請過人行橫道後右轉</span>
+            </div>
+            <img src="images/access-05.jpg" alt="Cross the crosswalk">
+          </div>
+          <div class="access-photo-step">
+            <div class="access-label">
+              <span class="access-num">6</span>
+              <span data-lang="ja">「永代河岸通り」を目印に左にお曲がりください。道なりにそのまままっすぐ約210mお進みください</span>
+              <span data-lang="en">Please turn left at the "Eitai Riverside Street" sign, then continue straight for about 210m</span>
+              <span data-lang="ko">"에이타이 강변 거리" 표지에서 왼쪽으로 돌아, 길을 따라 약 210m 직진해 주세요</span>
+              <span data-lang="zh">请在"永代河岸通"标志处左转，沿路直行约210米</span>
+              <span data-lang="tw">請在「永代河岸通」標誌處左轉，沿路直行約210米</span>
+            </div>
+            <img src="images/access-06.jpg" alt="Turn left at Eitai Riverside Street">
+          </div>
+          <div class="access-photo-step vivid">
+            <div class="access-label">
+              <span class="access-num">7</span>
+              <span data-lang="ja">「スマートキッズジュニア門前仲町第二」が見えましたら、そちらが宿泊施設でございます。矢印の通りに入り口へお入りください</span>
+              <span data-lang="en">When you see "Smart Kids Junior Monzennakacho 2," you have reached the accommodation. Please follow the arrow to the entrance</span>
+              <span data-lang="ko">"스마트 키즈 주니어 몬젠나카초 제2"가 보이시면 숙소에 도착하신 것입니다. 화살표를 따라 입구로 들어가 주세요</span>
+              <span data-lang="zh">看到"Smart Kids Junior 门前仲町第二"即为住宿设施，请按箭头方向进入入口</span>
+              <span data-lang="tw">看到「Smart Kids Junior 門前仲町第二」即為住宿設施，請按箭頭方向進入入口</span>
+            </div>
+            <img src="images/access-08.jpg" alt="Smart Kids Junior landmark - entrance">
+          </div>
+          <div class="access-photo-step">
+            <div class="access-label">
+              <span class="access-num">8</span>
+              <span data-lang="ja">入り口に入りましたら、4階まで階段をお上がりください</span>
+              <span data-lang="en">Once inside, please go up the stairs to the 4th floor</span>
+              <span data-lang="ko">입구에 들어가시면 4층까지 계단을 올라가 주세요</span>
+              <span data-lang="zh">进入入口后，请上楼梯到4楼</span>
+              <span data-lang="tw">進入入口後，請上樓梯到4樓</span>
+            </div>
+            <img src="images/access-09.jpg" alt="Enter and go to 4th floor">
+          </div>
+          <div class="access-photo-step">
+            <div class="access-label">
+              <span class="access-num">9</span>
+              <span data-lang="ja">4階に着きましたら、左手にございます401号室が宿泊施設でございます</span>
+              <span data-lang="en">On the 4th floor, Room 401 on your left is the accommodation. Welcome!</span>
+              <span data-lang="ko">4층에 도착하시면 왼쪽에 있는 401호가 숙소입니다. 환영합니다!</span>
+              <span data-lang="zh">到达4楼后，左手边的401号室即为住宿设施。欢迎您！</span>
+              <span data-lang="tw">到達4樓後，左手邊的401號室即為住宿設施。歡迎您！</span>
+            </div>
+            <img src="images/access-10.jpg" alt="Room 401 Luna stay Monzennakacho">
+          </div>
+        </div>
+        <div style="margin:12px 0;">
+          <p style="font-size:13px;font-weight:600;margin-bottom:8px;" data-lang="ja">&#x1f3ac; 門前仲町駅からの道順動画</p>
+          <p style="font-size:13px;font-weight:600;margin-bottom:8px;" data-lang="en">&#x1f3ac; Video: Directions from Monzennakacho Sta.</p>
+          <p style="font-size:13px;font-weight:600;margin-bottom:8px;" data-lang="ko">&#x1f3ac; 몬젠나카초역에서 오시는 길 동영상</p>
+          <p style="font-size:13px;font-weight:600;margin-bottom:8px;" data-lang="zh">&#x1f3ac; 视频：从门前仲町站出发的路线</p>
+          <p style="font-size:13px;font-weight:600;margin-bottom:8px;" data-lang="tw">&#x1f3ac; 視頻：從門前仲町站出發的路線</p>
+          <video controls playsinline preload="metadata"
+            style="width:100%;border-radius:8px;background:#000;"
+            poster="images/exterior.jpg">
+            <source src="images/access-directions.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Taxi -->
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x1f695; タクシーでお越しの方</span>
+        <span data-lang="en">&#x1f695; By Taxi</span>
+        <span data-lang="ko">&#x1f695; 택시 이용 시</span>
+        <span data-lang="zh">&#x1f695; 乘坐出租车</span>
+        <span data-lang="tw">&#x1f695; 乘坐出租車</span>
+      </div>
+      <div class="card-body">
+        <p data-lang="ja" style="font-size:13px;margin-bottom:12px;">運転手さんにこの住所をお伝えください:<br><strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">東京都江東区永代2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="en" style="font-size:13px;margin-bottom:12px;">Show this address to the driver:<br><strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">2-1-5 Eitai, Koto-ku, Tokyo SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="ko" style="font-size:13px;margin-bottom:12px;">운전기사에게 이 주소를 보여주세요:<br><strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">도쿄도 고토구 에이타이 2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="zh" style="font-size:13px;margin-bottom:12px;">请将此地址告知司机:<br><strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">东京都江东区永代2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <p data-lang="tw" style="font-size:13px;margin-bottom:12px;">請將此地址告知司機:<br><strong><a href="https://maps.app.goo.gl/tEx1T5Qw5Ko8sok87" target="_blank">東京都江東區永代2-1-5 SCS EITAI RESIDENCE 401</a></strong></p>
+        <table class="taxi-table">
+          <tr data-lang="ja"><td>&#x2708;&#xfe0f; 羽田空港から</td><td>約25分</td><td>~&#xa5;11,000</td></tr>
+          <tr data-lang="ja"><td>&#x2708;&#xfe0f; 成田空港から</td><td>約60分</td><td>~&#xa5;33,000</td></tr>
+          <tr data-lang="ja"><td>&#x1f686; 門前仲町駅から</td><td>約4分</td><td>~&#xa5;500</td></tr>
+          <tr data-lang="en"><td>&#x2708;&#xfe0f; From Haneda</td><td>~25 min</td><td>~&#xa5;11,000</td></tr>
+          <tr data-lang="en"><td>&#x2708;&#xfe0f; From Narita</td><td>~60 min</td><td>~&#xa5;33,000</td></tr>
+          <tr data-lang="en"><td>&#x1f686; From Monzennakacho Sta.</td><td>~4 min</td><td>~&#xa5;500</td></tr>
+          <tr data-lang="ko"><td>&#x2708;&#xfe0f; 하네다 공항</td><td>약 25분</td><td>~&#xa5;11,000</td></tr>
+          <tr data-lang="ko"><td>&#x2708;&#xfe0f; 나리타 공항</td><td>약 60분</td><td>~&#xa5;33,000</td></tr>
+          <tr data-lang="ko"><td>&#x1f686; 몬젠나카초역</td><td>약 4분</td><td>~&#xa5;500</td></tr>
+          <tr data-lang="zh"><td>&#x2708;&#xfe0f; 羽田机场</td><td>约25分钟</td><td>~&#xa5;11,000</td></tr>
+          <tr data-lang="tw"><td>&#x2708;&#xfe0f; 羽田機場</td><td>約25分鐘</td><td>~&#xa5;11,000</td></tr>
+          <tr data-lang="zh"><td>&#x2708;&#xfe0f; 成田机场</td><td>约60分钟</td><td>~&#xa5;33,000</td></tr>
+          <tr data-lang="tw"><td>&#x2708;&#xfe0f; 成田機場</td><td>約60分鐘</td><td>~&#xa5;33,000</td></tr>
+          <tr data-lang="zh"><td>&#x1f686; 门前仲町站</td><td>约4分钟</td><td>~&#xa5;500</td></tr>
+          <tr data-lang="tw"><td>&#x1f686; 門前仲町站</td><td>約4分鐘</td><td>~&#xa5;500</td></tr>
+        </table>
+        <div class="warning">
+          <span data-lang="ja">&#x1f55a; 22:00〜翌朝5:00は深夜料金（2割増し）が加算されます。</span>
+          <span data-lang="en">&#x1f55a; Late-night surcharge (20% extra) applies 10 PM - 5 AM.</span>
+          <span data-lang="ko">&#x1f55a; 22:00~05:00 심야 할증 (20% 추가) 적용됩니다.</span>
+          <span data-lang="zh">&#x1f55a; 22:00~次日5:00有深夜加价（加收20%）。</span>
+          <span data-lang="tw">&#x1f55a; 22:00~次日5:00有深夜加價（加收20%）。</span>
+        </div>
+        <div class="info-note">
+          <span data-lang="ja">&#x1f4f1; タクシー配車アプリ <strong><a href="https://go.goinc.jp/" target="_blank">「GO」をダウンロード</a></strong> — 日本で一番人気のアプリです。</span>
+          <span data-lang="en">&#x1f4f1; <strong><a href="https://go.goinc.jp/en/" target="_blank">Download "GO"</a></strong> taxi app - Japan's most popular ride-hailing app.</span>
+          <span data-lang="ko">&#x1f4f1; 택시 배차 앱 <strong><a href="https://go.goinc.jp/en/" target="_blank">"GO" 다운로드</a></strong> — 일본에서 가장 인기있는 앱입니다.</span>
+          <span data-lang="zh">&#x1f4f1; <strong><a href="https://go.goinc.jp/en/" target="_blank">下载"GO"</a></strong> — 日本最受欢迎的打车软件。</span>
+          <span data-lang="tw">&#x1f4f1; <strong><a href="https://go.goinc.jp/en/" target="_blank">下載"GO"</a></strong> — 日本最受歡迎的打車軟件。</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parking -->
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x1f697; 駐車場</span>
+        <span data-lang="en">&#x1f697; Parking</span>
+        <span data-lang="ko">&#x1f697; 주차장</span>
+        <span data-lang="zh">&#x1f697; 停车场</span>
+        <span data-lang="tw">&#x1f697; 停車場</span>
+      </div>
+      <div class="card-body">
+        <p data-lang="ja">当宿専用の駐車場はございません。<br><a href="https://www.google.com/maps/search/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%91%E3%83%BC%E3%82%AD%E3%83%B3%E3%82%B0/@35.6725272,139.7875169,17z" target="_blank">&#x1f50d; 近隣のコインパーキングを検索</a></p>
+        <p data-lang="en">No private parking. <a href="https://www.google.com/maps/search/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%91%E3%83%BC%E3%82%AD%E3%83%B3%E3%82%B0/@35.6725272,139.7875169,17z" target="_blank">&#x1f50d; Search nearby coin parking</a></p>
+        <p data-lang="ko">전용 주차장은 없습니다. <a href="https://www.google.com/maps/search/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%91%E3%83%BC%E3%82%AD%E3%83%B3%E3%82%B0/@35.6725272,139.7875169,17z" target="_blank">&#x1f50d; 근처 코인 파킹 검색</a></p>
+        <p data-lang="zh">没有专用停车场。<a href="https://www.google.com/maps/search/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%91%E3%83%BC%E3%82%AD%E3%83%B3%E3%82%B0/@35.6725272,139.7875169,17z" target="_blank">&#x1f50d; 搜索附近投币停车场</a></p>
+        <p data-lang="tw">沒有專用停車場。<a href="https://www.google.com/maps/search/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%91%E3%83%BC%E3%82%AD%E3%83%B3%E3%82%B0/@35.6725272,139.7875169,17z" target="_blank">&#x1f50d; 搜索附近投幣停車場</a></p>
+      </div>
+    </div>
+
+    <!-- LUUP -->
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x1f6f4; LUUP（電動キックボード・自転車シェア）</span>
+        <span data-lang="en">&#x1f6f4; LUUP (E-Scooter &amp; E-Bike Sharing)</span>
+        <span data-lang="ko">&#x1f6f4; LUUP (전동 킥보드 &amp; 전기 자전거 공유)</span>
+        <span data-lang="zh">&#x1f6f4; LUUP（电动滑板车・共享单车）</span>
+        <span data-lang="tw">&#x1f6f4; LUUP（電動滑板車・共享單車）</span>
+      </div>
+      <div class="card-body">
+        <div class="photo-grid single" style="margin-bottom:12px;">
+          <img src="images/luup-port.jpg" alt="LUUP port at building entrance" style="height:auto;object-fit:contain;">
+        </div>
+        <p data-lang="ja" style="font-size:14px;">建物入口に<strong>LUUPのポート</strong>があります。電動キックボード・電動自転車のシェアリングサービスで、アプリをダウンロードするだけですぐに利用できます。周辺の観光にとても便利です！</p>
+        <p data-lang="en" style="font-size:14px;">There is a <strong>LUUP sharing port right at the building entrance</strong>. LUUP offers electric scooters and e-bikes &mdash; just download the app and ride! Great for exploring the neighborhood.</p>
+        <p data-lang="ko" style="font-size:14px;">건물 입구에 <strong>LUUP 공유 포트</strong>가 있습니다. 전동 킥보드와 전기 자전거를 앱만 다운로드하면 바로 이용할 수 있습니다. 주변 관광에 매우 편리합니다!</p>
+        <p data-lang="zh" style="font-size:14px;">大楼入口设有<strong>LUUP共享站点</strong>。提供电动滑板车和电动自行车，下载应用即可使用，探索周边非常方便！</p>
+        <p data-lang="tw" style="font-size:14px;">大樓入口設有<strong>LUUP共享站點</strong>。提供電動滑板車和電動自行車，下載應用即可使用，探索周邊非常方便！</p>
+        <div class="info-note">
+          <span data-lang="ja">&#x1f4f1; アプリをダウンロード: <a href="https://apps.apple.com/us/app/luup-ride-your-city/id1445630390" target="_blank">App Store</a> | <a href="https://play.google.com/store/apps/details?id=sc.luup.luup" target="_blank">Google Play</a> | <a href="https://luup.sc/en/" target="_blank">公式サイト</a></span>
+          <span data-lang="en">&#x1f4f1; Download the app: <a href="https://apps.apple.com/us/app/luup-ride-your-city/id1445630390" target="_blank">App Store</a> | <a href="https://play.google.com/store/apps/details?id=sc.luup.luup" target="_blank">Google Play</a> | <a href="https://luup.sc/en/" target="_blank">Official Site</a></span>
+          <span data-lang="ko">&#x1f4f1; 앱 다운로드: <a href="https://apps.apple.com/us/app/luup-ride-your-city/id1445630390" target="_blank">App Store</a> | <a href="https://play.google.com/store/apps/details?id=sc.luup.luup" target="_blank">Google Play</a> | <a href="https://luup.sc/en/" target="_blank">공식 사이트</a></span>
+          <span data-lang="zh">&#x1f4f1; 下载应用: <a href="https://apps.apple.com/us/app/luup-ride-your-city/id1445630390" target="_blank">App Store</a> | <a href="https://play.google.com/store/apps/details?id=sc.luup.luup" target="_blank">Google Play</a> | <a href="https://luup.sc/en/" target="_blank">官方网站</a></span>
+          <span data-lang="tw">&#x1f4f1; 下載應用: <a href="https://apps.apple.com/us/app/luup-ride-your-city/id1445630390" target="_blank">App Store</a> | <a href="https://play.google.com/store/apps/details?id=sc.luup.luup" target="_blank">Google Play</a> | <a href="https://luup.sc/en/" target="_blank">官方網站</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== KEY ==================== -->
+  <section id="key" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f511;</span>
+      <span data-lang="ja">鍵の開け方</span>
+      <span data-lang="en">How to Unlock</span>
+      <span data-lang="ko">열쇠 사용법</span>
+      <span data-lang="zh">开锁方法</span>
+      <span data-lang="tw">開鎖方法</span>
+    </h2>
+    <div class="card">
+      <div class="card-body">
+        <div class="photo-grid single">
+          <img data-lang="ja" src="images/key-guide-ja.jpg" alt="Key guide" style="height:auto;object-fit:contain;">
+          <img data-lang="en" src="images/key-guide-en.jpg" alt="Key guide" style="height:auto;object-fit:contain;">
+          <img data-lang="ko" src="images/key-guide-ko.jpg" alt="Key guide" style="height:auto;object-fit:contain;">
+          <img data-lang="zh" src="images/key-guide-zh.jpg" alt="Key guide" style="height:auto;object-fit:contain;">
+          <img data-lang="tw" src="images/key-guide-tw.jpg" alt="Key guide" style="height:auto;object-fit:contain;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ROOMS ==================== -->
+  <section id="rooms" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f3e1;</span>
+      <span data-lang="ja">お部屋ガイド</span>
+      <span data-lang="en">Room Guide</span>
+      <span data-lang="ko">객실 안내</span>
+      <span data-lang="zh">房间指南</span>
+      <span data-lang="tw">房間指南</span>
+    </h2>
+
+    <div class="card">
+      <div class="card-header">&#x1f373; Kitchen</div>
+      <div class="card-body">
+        <h4 class="item-heading">&#x1f525; Gas Stove (Paloma)</h4>
+        <div class="photo-grid single">
+          <img src="images/gas-stove.jpg" alt="Gas Stove Paloma">
+        </div>
+        <ol class="steps" data-lang="ja">
+          <li><div class="step-content"><div class="main">レバーを押し込んで、下にグッと引く &rarr; 点火</div></div></li>
+          <li><div class="step-content"><div class="main">火力調節: レバー上のインジケーターで確認</div><div class="sub">&#x1f525;=弱 &#x1f525;&#x1f525;=強</div></div></li>
+          <li><div class="step-content"><div class="main">消火: レバーを一番上まで戻す</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="en">
+          <li><div class="step-content"><div class="main">Push lever in, pull down firmly &rarr; ignites</div></div></li>
+          <li><div class="step-content"><div class="main">Adjust flame: check indicator above lever</div><div class="sub">&#x1f525;=low &#x1f525;&#x1f525;=high</div></div></li>
+          <li><div class="step-content"><div class="main">Turn off: push lever all the way up</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="ko">
+          <li><div class="step-content"><div class="main">레버를 누르고 아래로 힘껏 당기세요 &rarr; 점화</div></div></li>
+          <li><div class="step-content"><div class="main">화력 조절: 레버 위 인디케이터 확인</div><div class="sub">&#x1f525;=약 &#x1f525;&#x1f525;=강</div></div></li>
+          <li><div class="step-content"><div class="main">끄기: 레버를 맨 위로 올려주세요</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="zh">
+          <li><div class="step-content"><div class="main">按入操作杆并用力向下拉 &rarr; 自动点火</div></div></li>
+          <li><div class="step-content"><div class="main">调节火力：查看操作杆上方指示灯</div><div class="sub">&#x1f525;=小火 &#x1f525;&#x1f525;=大火</div></div></li>
+          <li><div class="step-content"><div class="main">关火：将操作杆推回最上方</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="tw">
+          <li><div class="step-content"><div class="main">按入操作杆並用力向下拉 &rarr; 自動點火</div></div></li>
+          <li><div class="step-content"><div class="main">調節火力：查看操作杆上方指示燈</div><div class="sub">&#x1f525;=小火 &#x1f525;&#x1f525;=大火</div></div></li>
+          <li><div class="step-content"><div class="main">關火：將操作杆推回最上方</div></div></li>
+        </ol>
+        <div class="warning">
+          <span data-lang="ja">&#x1f512; チャイルドロック: 左パネル下「ロック&rarr;」を右にスライド<br>&#x26a0;&#xfe0f; 使用後は必ず全レバーを上（OFF）に戻してください</span>
+          <span data-lang="en">&#x1f512; Child lock: slide "ロック&rarr;" on the left panel<br>&#x26a0;&#xfe0f; After use, push all levers to top (OFF)</span>
+          <span data-lang="ko">&#x1f512; 차일드 잠금: 왼쪽 "ロック&rarr;"를 밀면 잠금/해제<br>&#x26a0;&#xfe0f; 사용 후 모든 레버를 맨 위(OFF)로</span>
+          <span data-lang="zh">&#x1f512; 儿童锁：滑动左侧"ロック&rarr;"<br>&#x26a0;&#xfe0f; 使用后请将所有操作杆推回最上方（OFF）</span>
+          <span data-lang="tw">&#x1f512; 兒童鎖：滑動左側"ロック&rarr;"<br>&#x26a0;&#xfe0f; 使用後請將所有操作杆推回最上方（OFF）</span>
+        </div>
+        <h4 class="item-heading">&#x2615; Kettle (De'Longhi)</h4>
+        <div class="photo-grid single">
+          <img src="images/kettle.jpg" alt="Kettle" style="height:auto;object-fit:contain;">
+        </div>
+        <p data-lang="ja" style="font-size:14px;margin:8px 0 4px;">ケトルに水を入れ（最大1.0L / 最小0.2L）、電源ボタンを押してから温度設定ボタンでお好みの温度を選んでください。</p>
+        <p data-lang="en" style="font-size:14px;margin:8px 0 4px;">Fill the kettle with water (max 1.0L / min 0.2L), press the power button, then select your desired temperature.</p>
+        <p data-lang="ko" style="font-size:14px;margin:8px 0 4px;">케틀에 물을 넣고 (최대 1.0L / 최소 0.2L), 전원 버튼을 누른 후 원하는 온도를 선택하세요.</p>
+        <p data-lang="zh" style="font-size:14px;margin:8px 0 4px;">在水壶中加水（最多1.0L / 最少0.2L），按下电源按钮后选择所需温度。</p>
+        <p data-lang="tw" style="font-size:14px;margin:8px 0 4px;">在水壺中加水（最多1.0L / 最少0.2L），按下電源按鈕後選擇所需溫度。</p>
+        <div class="photo-grid single" style="margin-top:4px;">
+          <img data-lang="ja" src="images/kettle-panel-ja.jpg" alt="Kettle panel" style="height:auto;object-fit:contain;">
+          <img data-lang="en" src="images/kettle-panel-en.jpg" alt="Kettle panel" style="height:auto;object-fit:contain;">
+          <img data-lang="ko" src="images/kettle-panel-ko.jpg" alt="Kettle panel" style="height:auto;object-fit:contain;">
+          <img data-lang="zh" src="images/kettle-panel-zh.jpg" alt="Kettle panel" style="height:auto;object-fit:contain;">
+          <img data-lang="tw" src="images/kettle-panel-tw.jpg" alt="Kettle panel" style="height:auto;object-fit:contain;">
+        </div>
+        <h4 class="item-heading">&#x1f4a8; Microwave (TWINBIRD)</h4>
+        <div class="photo-grid single" style="margin-top:4px;">
+          <img data-lang="ja" src="images/microwave-ja.jpg" alt="Microwave" style="height:auto;object-fit:contain;">
+          <img data-lang="en" src="images/microwave-en.jpg" alt="Microwave" style="height:auto;object-fit:contain;">
+          <img data-lang="ko" src="images/microwave-ko.jpg" alt="Microwave" style="height:auto;object-fit:contain;">
+          <img data-lang="zh" src="images/microwave-zh.jpg" alt="Microwave" style="height:auto;object-fit:contain;">
+          <img data-lang="tw" src="images/microwave-tw.jpg" alt="Microwave" style="height:auto;object-fit:contain;">
+        </div>
+        <div class="photo-grid single" style="margin-top:8px;">
+          <img data-lang="ja" src="images/microwave-qr-ja.jpg" alt="Microwave QR" style="height:auto;object-fit:contain;">
+          <img data-lang="en" src="images/microwave-qr-en.jpg" alt="Microwave QR" style="height:auto;object-fit:contain;">
+          <img data-lang="ko" src="images/microwave-qr-ko.jpg" alt="Microwave QR" style="height:auto;object-fit:contain;">
+          <img data-lang="zh" src="images/microwave-qr-zh.jpg" alt="Microwave QR" style="height:auto;object-fit:contain;">
+          <img data-lang="tw" src="images/microwave-qr-tw.jpg" alt="Microwave QR" style="height:auto;object-fit:contain;">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#x1f6c1; Bathroom / Washroom</div>
+      <div class="card-body">
+        <h4 class="item-heading">&#x1f6bf; Hot Water</h4>
+        <p data-lang="ja" style="font-size:14px;margin:8px 0 4px;">給湯器の操作パネルはキッチンにのみあります。お湯を使うには「運転 入/切」ボタンを押してオンにしてください。&#x25b2;&#x25bc;ボタンで温度を調節できます。使用後は必ずオフにしてください。&#x26a0;&#xfe0f;「湯量設定」ボタン（&#x274c;印）には触れないでください。</p>
+        <p data-lang="en" style="font-size:14px;margin:8px 0 4px;">The water heater panel is located in the kitchen only. To use hot water, press the On/Off button to turn it on. Use the &#x25b2;&#x25bc; buttons to adjust the temperature. Please turn it off after use. &#x26a0;&#xfe0f; Do not touch the button marked with &#x274c;.</p>
+        <p data-lang="ko" style="font-size:14px;margin:8px 0 4px;">온수기 패널은 주방에만 있습니다. 온수를 사용하려면 켜기/끄기 버튼을 눌러 전원을 켜세요. &#x25b2;&#x25bc; 버튼으로 온도를 조절할 수 있습니다. 사용 후에는 반드시 꺼주세요. &#x26a0;&#xfe0f; &#x274c; 표시된 버튼은 만지지 마세요.</p>
+        <p data-lang="zh" style="font-size:14px;margin:8px 0 4px;">热水器操作面板仅位于厨房。使用热水时，请按下开/关按钮开启。用 &#x25b2;&#x25bc; 按钮调节温度。使用后请务必关闭。&#x26a0;&#xfe0f; 请勿触碰标有 &#x274c; 的按钮。</p>
+        <p data-lang="tw" style="font-size:14px;margin:8px 0 4px;">熱水器操作面板僅位於廚房。使用熱水時，請按下開/關按鈕開啟。用 &#x25b2;&#x25bc; 按鈕調節溫度。使用後請務必關閉。&#x26a0;&#xfe0f; 請勿觸碰標有 &#x274c; 的按鈕。</p>
+        <div class="photo-grid single" style="margin-top:4px;">
+          <img data-lang="en" src="images/water-heater-en.jpg" alt="Water heater" style="height:auto;object-fit:contain;">
+          <img data-lang="ko" src="images/water-heater-ko.jpg" alt="Water heater" style="height:auto;object-fit:contain;">
+          <img data-lang="zh" src="images/water-heater-zh.jpg" alt="Water heater" style="height:auto;object-fit:contain;">
+          <img data-lang="tw" src="images/water-heater-tw.jpg" alt="Water heater" style="height:auto;object-fit:contain;">
+        </div>
+        <h4 class="item-heading">&#x1f455; Washer-Dryer</h4>
+        <div class="photo-grid single">
+          <img src="images/washer.jpg" alt="Washer" style="height:auto;object-fit:contain;">
+        </div>
+        <p data-lang="ja" style="font-size:14px;margin:10px 0 4px;font-weight:600;">こちらが備え付けの洗剤です。柔軟剤はございません。</p>
+        <p data-lang="en" style="font-size:14px;margin:10px 0 4px;font-weight:600;">This is the provided detergent. Fabric softener is not available.</p>
+        <p data-lang="ko" style="font-size:14px;margin:10px 0 4px;font-weight:600;">비치된 세제는 다음과 같습니다. 섬유유연제는 없습니다.</p>
+        <p data-lang="zh" style="font-size:14px;margin:10px 0 4px;font-weight:600;">以下是备用洗涤剂。没有柔顺剂。</p>
+        <p data-lang="tw" style="font-size:14px;margin:10px 0 4px;font-weight:600;">以下是備用洗滌劑。沒有柔順劑。</p>
+        <div class="photo-grid single" style="margin-top:4px;">
+          <img src="images/detergent.jpg" alt="Detergent" style="height:auto;object-fit:contain;">
+        </div>
+        <p data-lang="ja" style="font-size:14px;margin:10px 0 4px;font-weight:600;">投入口は以下の通りです。</p>
+        <p data-lang="en" style="font-size:14px;margin:10px 0 4px;font-weight:600;">The detergent drawer is shown below.</p>
+        <p data-lang="ko" style="font-size:14px;margin:10px 0 4px;font-weight:600;">투입구는 아래와 같습니다.</p>
+        <p data-lang="zh" style="font-size:14px;margin:10px 0 4px;font-weight:600;">投入口如下图所示。</p>
+        <p data-lang="tw" style="font-size:14px;margin:10px 0 4px;font-weight:600;">投入口如下圖所示。</p>
+        <div class="photo-grid single" style="margin-top:4px;">
+          <img data-lang="ja" src="images/detergent-drawer.jpg" alt="Detergent drawer">
+          <img data-lang="en" src="images/detergent-drawer-en.jpg" alt="Detergent drawer">
+          <img data-lang="ko" src="images/detergent-drawer-ko.jpg" alt="Detergent drawer">
+          <img data-lang="zh" src="images/detergent-drawer-zh.jpg" alt="Detergent drawer">
+          <img data-lang="tw" src="images/detergent-drawer-tw.jpg" alt="Detergent drawer">
+        </div>
+        <div class="photo-grid single" style="margin-top:8px;">
+          <img data-lang="ja" src="images/washer-panel-ja.jpg" alt="Washer panel" style="height:auto;max-height:260px;object-fit:contain;">
+          <img data-lang="en" src="images/washer-panel-en.jpg" alt="Washer panel" style="height:auto;max-height:260px;object-fit:contain;">
+          <img data-lang="ko" src="images/washer-panel-ko.jpg" alt="Washer panel" style="height:auto;max-height:260px;object-fit:contain;">
+          <img data-lang="zh" src="images/washer-panel-zh.jpg" alt="Washer panel" style="height:auto;max-height:260px;object-fit:contain;">
+          <img data-lang="tw" src="images/washer-panel-tw.jpg" alt="Washer panel" style="height:auto;max-height:260px;object-fit:contain;">
+        </div>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="ja">&#x1f9fa; 洗濯のみ</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="en">&#x1f9fa; Wash Only</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="ko">&#x1f9fa; 세탁만</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="zh">&#x1f9fa; 仅洗涤</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="tw">&#x1f9fa; 僅洗滌</h4>
+        <ol class="steps" data-lang="ja">
+          <li><div class="step-content"><div class="main">洗濯物を入れ、洗剤を投入口に入れる</div></div></li>
+          <li><div class="step-content"><div class="main">「電源 切/入」を押す</div><div class="sub">コースはそのまま（標準）でOK</div></div></li>
+          <li><div class="step-content"><div class="main">「スタート / 一時停止」を押す &rarr; 運転開始</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="en">
+          <li><div class="step-content"><div class="main">Put laundry in &amp; add detergent</div></div></li>
+          <li><div class="step-content"><div class="main">Press Power</div><div class="sub">Default "Standard" course is fine</div></div></li>
+          <li><div class="step-content"><div class="main">Press Start</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="ko">
+          <li><div class="step-content"><div class="main">세탁물과 세제를 넣으세요</div></div></li>
+          <li><div class="step-content"><div class="main">전원 ON</div><div class="sub">기본 "표준" 코스 OK</div></div></li>
+          <li><div class="step-content"><div class="main">시작 버튼</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="zh">
+          <li><div class="step-content"><div class="main">放入衣物和洗涤剂</div></div></li>
+          <li><div class="step-content"><div class="main">按电源</div><div class="sub">默认"标准"即可</div></div></li>
+          <li><div class="step-content"><div class="main">按开始</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="tw">
+          <li><div class="step-content"><div class="main">放入衣物和洗滌劑</div></div></li>
+          <li><div class="step-content"><div class="main">按電源</div><div class="sub">默認"標準"即可</div></div></li>
+          <li><div class="step-content"><div class="main">按開始</div></div></li>
+        </ol>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="ja">&#x1f525; 洗濯 + 乾燥</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="en">&#x1f525; Wash + Dry</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="ko">&#x1f525; 세탁 + 건조</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="zh">&#x1f525; 洗 + 烘</h4>
+        <h4 style="margin:14px 0 6px;font-size:14px;font-weight:700;" data-lang="tw">&#x1f525; 洗 + 烘</h4>
+        <ol class="steps" data-lang="ja">
+          <li><div class="step-content"><div class="main">洗濯物を入れ、洗剤を投入口に入れる</div></div></li>
+          <li><div class="step-content"><div class="main">「電源 切/入」を押す</div></div></li>
+          <li><div class="step-content"><div class="main">「洗濯乾燥」ボタンを押す &rarr; モード切替</div></div></li>
+          <li><div class="step-content"><div class="main">「スタート」を押す &rarr; 洗濯〜乾燥まで自動</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="en">
+          <li><div class="step-content"><div class="main">Put laundry in &amp; add detergent</div></div></li>
+          <li><div class="step-content"><div class="main">Press Power ON</div></div></li>
+          <li><div class="step-content"><div class="main">Press "洗濯乾燥" (Wash+Dry) button</div></div></li>
+          <li><div class="step-content"><div class="main">Press Start &rarr; auto wash to dry</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="ko">
+          <li><div class="step-content"><div class="main">세탁물과 세제를 넣으세요</div></div></li>
+          <li><div class="step-content"><div class="main">전원 켜기</div></div></li>
+          <li><div class="step-content"><div class="main">"洗濯乾燥" 버튼으로 모드 전환</div></div></li>
+          <li><div class="step-content"><div class="main">시작 &rarr; 세탁~건조 자동</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="zh">
+          <li><div class="step-content"><div class="main">放入衣物和洗涤剂</div></div></li>
+          <li><div class="step-content"><div class="main">按电源开机</div></div></li>
+          <li><div class="step-content"><div class="main">按"洗濯乾燥"切换模式</div></div></li>
+          <li><div class="step-content"><div class="main">按开始 &rarr; 全自动</div></div></li>
+        </ol>
+        <ol class="steps" data-lang="tw">
+          <li><div class="step-content"><div class="main">放入衣物和洗滌劑</div></div></li>
+          <li><div class="step-content"><div class="main">按電源開機</div></div></li>
+          <li><div class="step-content"><div class="main">按"洗濯乾燥"切換模式</div></div></li>
+          <li><div class="step-content"><div class="main">按開始 &rarr; 全自動</div></div></li>
+        </ol>
+        <div class="warning">
+          <span data-lang="ja">&#x26a0;&#xfe0f; 終了後は速やかに取り出し、フタを開けたままに</span>
+          <span data-lang="en">&#x26a0;&#xfe0f; Remove promptly. Leave lid open after use.</span>
+          <span data-lang="ko">&#x26a0;&#xfe0f; 바로 꺼내고 뚜껑 열어두세요</span>
+          <span data-lang="zh">&#x26a0;&#xfe0f; 请及时取出，保持盖子打开</span>
+          <span data-lang="tw">&#x26a0;&#xfe0f; 請及時取出，保持蓋子打開</span>
+        </div>
+        <p style="font-size:13px;margin-top:10px;">
+          <span data-lang="ja">&#x1f4d6; 詳しい使い方は<a href="https://www.irisohyama.co.jp/products/manual/pdf/574663.pdf" target="_blank" rel="noopener">こちら（取扱説明書）</a>をご覧ください。</span>
+          <span data-lang="en">&#x1f4d6; For more details, see the <a href="https://www.irisohyama.co.jp/products/manual/pdf/574663.pdf" target="_blank" rel="noopener">instruction manual</a>.</span>
+          <span data-lang="ko">&#x1f4d6; 자세한 사용법은 <a href="https://www.irisohyama.co.jp/products/manual/pdf/574663.pdf" target="_blank" rel="noopener">취급설명서</a>를 참고하세요.</span>
+          <span data-lang="zh">&#x1f4d6; 详细使用方法请参阅<a href="https://www.irisohyama.co.jp/products/manual/pdf/574663.pdf" target="_blank" rel="noopener">使用说明书</a>。</span>
+          <span data-lang="tw">&#x1f4d6; 詳細使用方法請參閱<a href="https://www.irisohyama.co.jp/products/manual/pdf/574663.pdf" target="_blank" rel="noopener">使用說明書</a>。</span>
+        </p>
+        <p style="font-size:13px;margin-top:8px;">
+          <span data-lang="ja">&#x1f9fa; 近くにコインランドリーもあります（徒歩約2分）。大量の洗濯物がある場合はぜひご利用ください。&#x1f449; <a href="https://www.google.com/maps/place/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%A9%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%EF%BC%8F%E3%83%94%E3%82%A8%E3%83%AD+%E6%B0%B8%E4%BB%A3%E5%BA%97/@35.6724479,139.7913503,17z/data=!3m1!4b1!4m6!3m5!1s0x6018896c91c3ae75:0x3a54c5057a626f2c!8m2!3d35.6724479!4d139.7913503!16s%2Fg%2F11hcflcwg_!5m1!1e2?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a></span>
+          <span data-lang="en">&#x1f9fa; There is also a coin laundry nearby (about 2 min walk). Feel free to use it for larger loads. &#x1f449; <a href="https://www.google.com/maps/place/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%A9%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%EF%BC%8F%E3%83%94%E3%82%A8%E3%83%AD+%E6%B0%B8%E4%BB%A3%E5%BA%97/@35.6724479,139.7913503,17z/data=!3m1!4b1!4m6!3m5!1s0x6018896c91c3ae75:0x3a54c5057a626f2c!8m2!3d35.6724479!4d139.7913503!16s%2Fg%2F11hcflcwg_!5m1!1e2?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a></span>
+          <span data-lang="ko">&#x1f9fa; 근처에 코인 세탁소도 있습니다 (도보 약 2분). 빨래가 많을 때 이용해 주세요. &#x1f449; <a href="https://www.google.com/maps/place/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%A9%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%EF%BC%8F%E3%83%94%E3%82%A8%E3%83%AD+%E6%B0%B8%E4%BB%A3%E5%BA%97/@35.6724479,139.7913503,17z/data=!3m1!4b1!4m6!3m5!1s0x6018896c91c3ae75:0x3a54c5057a626f2c!8m2!3d35.6724479!4d139.7913503!16s%2Fg%2F11hcflcwg_!5m1!1e2?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a></span>
+          <span data-lang="zh">&#x1f9fa; 附近也有自助洗衣店（步行约2分钟）。洗涤量较大时请随时使用。&#x1f449; <a href="https://www.google.com/maps/place/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%A9%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%EF%BC%8F%E3%83%94%E3%82%A8%E3%83%AD+%E6%B0%B8%E4%BB%A3%E5%BA%97/@35.6724479,139.7913503,17z/data=!3m1!4b1!4m6!3m5!1s0x6018896c91c3ae75:0x3a54c5057a626f2c!8m2!3d35.6724479!4d139.7913503!16s%2Fg%2F11hcflcwg_!5m1!1e2?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a></span>
+          <span data-lang="tw">&#x1f9fa; 附近也有自助洗衣店（步行約2分鐘）。洗滌量較大時請隨時使用。&#x1f449; <a href="https://www.google.com/maps/place/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%A9%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%EF%BC%8F%E3%83%94%E3%82%A8%E3%83%AD+%E6%B0%B8%E4%BB%A3%E5%BA%97/@35.6724479,139.7913503,17z/data=!3m1!4b1!4m6!3m5!1s0x6018896c91c3ae75:0x3a54c5057a626f2c!8m2!3d35.6724479!4d139.7913503!16s%2Fg%2F11hcflcwg_!5m1!1e2?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a></span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEAM IRON ==================== -->
+  <section id="steam-iron" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f455;</span>
+      <span data-lang="ja">スチームアイロン</span>
+      <span data-lang="en">Steam Iron</span>
+      <span data-lang="ko">스팀 다리미</span>
+      <span data-lang="zh">蒸汽熨斗</span>
+      <span data-lang="tw">蒸氣熨斗</span>
+    </h2>
+    <div class="card">
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--text-sub);margin-bottom:12px;">
+          <span data-lang="ja">寝室のクローゼットに入っています。アイロン台も一緒にお使いください。</span>
+          <span data-lang="en">Located in the bedroom closet. Please also use the ironing board provided.</span>
+          <span data-lang="ko">침실 옷장에 있습니다. 다리미판도 함께 사용해 주세요.</span>
+          <span data-lang="zh">放在卧室的衣柜里。请同时使用熨衣板。</span>
+          <span data-lang="tw">放在臥室的衣櫃裡。請同時使用燙衣板。</span>
+        </p>
+        <div data-lang="ja">
+          <ol style="font-size:14px;color:var(--text-sub);padding-left:20px;margin-bottom:12px;">
+            <li>タンクに水を入れる</li>
+            <li>電源を入れ、約10秒待つ（加熱）</li>
+            <li>スチーム量を選ぶ（3段階）</li>
+            <li>服にあてて、ボタンを押しながらシワを伸ばす</li>
+            <li>使い終わったら電源を切り、水を捨てる</li>
+          </ol>
+        </div>
+        <div data-lang="en">
+          <ol style="font-size:14px;color:var(--text-sub);padding-left:20px;margin-bottom:12px;">
+            <li>Fill the tank with water</li>
+            <li>Turn on the power and wait about 10 seconds (heating up)</li>
+            <li>Select steam level (3 levels)</li>
+            <li>Hold it against clothes and press the button to remove wrinkles</li>
+            <li>Turn off the power and empty the water when finished</li>
+          </ol>
+        </div>
+        <div data-lang="ko">
+          <ol style="font-size:14px;color:var(--text-sub);padding-left:20px;margin-bottom:12px;">
+            <li>탱크에 물을 넣기</li>
+            <li>전원을 켜고 약 10초 대기 (가열)</li>
+            <li>스팀 양 선택 (3단계)</li>
+            <li>옷에 대고 버튼을 누르면서 주름을 펴기</li>
+            <li>사용 후 전원을 끄고 물을 비우기</li>
+          </ol>
+        </div>
+        <div data-lang="zh">
+          <ol style="font-size:14px;color:var(--text-sub);padding-left:20px;margin-bottom:12px;">
+            <li>将水注入水箱</li>
+            <li>打开电源，等待约10秒（加热）</li>
+            <li>选择蒸汽量（3档）</li>
+            <li>对准衣物，按住按钮熨烫去除褶皱</li>
+            <li>使用后关闭电源，倒掉水箱中的水</li>
+          </ol>
+        </div>
+        <div data-lang="tw">
+          <ol style="font-size:14px;color:var(--text-sub);padding-left:20px;margin-bottom:12px;">
+            <li>將水注入水箱</li>
+            <li>打開電源，等待約10秒（加熱）</li>
+            <li>選擇蒸氣量（3檔）</li>
+            <li>對準衣物，按住按鈕熨燙去除皺摺</li>
+            <li>使用後關閉電源，倒掉水箱中的水</li>
+          </ol>
+        </div>
+        <div class="info-note" style="margin-bottom:12px;">
+          <span data-lang="ja">&#x26a0;&#xfe0f; 高温・蒸気に注意。肌に直接当てないでください。</span>
+          <span data-lang="en">&#x26a0;&#xfe0f; Caution: high temperature and steam. Do not apply directly to skin.</span>
+          <span data-lang="ko">&#x26a0;&#xfe0f; 주의: 고온 및 증기. 피부에 직접 대지 마세요.</span>
+          <span data-lang="zh">&#x26a0;&#xfe0f; 注意：高温蒸汽，请勿直接接触皮肤。</span>
+          <span data-lang="tw">&#x26a0;&#xfe0f; 注意：高溫蒸氣，請勿直接接觸皮膚。</span>
+        </div>
+        <div>
+          <img data-lang="ja" src="images/steam-iron-ja.jpg" alt="スチームアイロン" style="width:100%;border-radius:8px;">
+          <img data-lang="en" src="images/steam-iron-en.jpg" alt="Steam Iron Guide" style="width:100%;border-radius:8px;">
+          <img data-lang="ko" src="images/steam-iron-ko.jpg" alt="스팀 다리미 안내" style="width:100%;border-radius:8px;">
+          <img data-lang="zh" src="images/steam-iron-zh.jpg" alt="蒸汽熨斗指南" style="width:100%;border-radius:8px;">
+          <img data-lang="tw" src="images/steam-iron-tw.jpg" alt="蒸氣熨斗指南" style="width:100%;border-radius:8px;">
+        </div>
+        <div style="margin-top:8px;font-size:13px;">
+          <a data-lang="ja" href="https://www.amazon.co.jp/dp/B0FBWJRLG3" target="_blank">&#x1f4d6; 詳しくはこちら（Amazon）</a>
+          <a data-lang="en" href="https://www.amazon.co.jp/dp/B0FBWJRLG3" target="_blank">&#x1f4d6; More details (Amazon)</a>
+          <a data-lang="ko" href="https://www.amazon.co.jp/dp/B0FBWJRLG3" target="_blank">&#x1f4d6; 자세히 보기 (Amazon)</a>
+          <a data-lang="zh" href="https://www.amazon.co.jp/dp/B0FBWJRLG3" target="_blank">&#x1f4d6; 详情请看这里 (Amazon)</a>
+          <a data-lang="tw" href="https://www.amazon.co.jp/dp/B0FBWJRLG3" target="_blank">&#x1f4d6; 詳情請看這裡 (Amazon)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== REMOTE CONTROLS ==================== -->
+  <section id="ac-remote" class="section" data-hide-lang="ja">
+    <h2 class="section-title"><span class="icon">&#x1f39b;&#xfe0f;</span>
+      <span data-lang="ja">リモコンガイド</span>
+      <span data-lang="en">Remote Control Guide</span>
+      <span data-lang="ko">리모컨 안내</span>
+      <span data-lang="zh">遥控器指南</span>
+      <span data-lang="tw">遙控器指南</span>
+    </h2>
+
+    <div class="card">
+      <div class="card-header">&#x2744;&#xfe0f;
+        <span data-lang="ja">エアコン（寝室・リビング共通）</span>
+        <span data-lang="en">Air Conditioner (Bedroom &amp; Living Room)</span>
+        <span data-lang="ko">에어컨 (침실 &amp; 거실 공통)</span>
+        <span data-lang="zh">空调（卧室・客厅通用）</span>
+        <span data-lang="tw">冷氣（臥室・客廳通用）</span>
+      </div>
+      <div class="card-body">
+        <p>
+          <span data-lang="ja">寝室・リビングダイニングともに同じリモコンです。</span>
+          <span data-lang="en">The same remote is used for both the bedroom and the living/dining room.</span>
+          <span data-lang="ko">침실과 거실/식당 모두 같은 리모컨입니다.</span>
+          <span data-lang="zh">卧室和客厅/餐厅使用相同的遥控器。</span>
+          <span data-lang="tw">臥室和客廳/餐廳使用相同的遙控器。</span>
+        </p>
+        <div style="margin-top:12px;">
+          <img data-lang="en" src="images/ac-remote-en.jpg" alt="AC Remote Guide (English)" style="width:100%;border-radius:8px;">
+          <img data-lang="ko" src="images/ac-remote-ko.jpg" alt="에어컨 리모컨 안내" style="width:100%;border-radius:8px;">
+          <img data-lang="zh" src="images/ac-remote-zh.jpg" alt="空调遥控器指南" style="width:100%;border-radius:8px;">
+          <img data-lang="tw" src="images/ac-remote-tw.jpg" alt="冷氣遙控器指南" style="width:100%;border-radius:8px;">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#x1f4a1;
+        <span data-lang="ja">寝室の照明</span>
+        <span data-lang="en">Bedroom Light</span>
+        <span data-lang="ko">침실 조명</span>
+        <span data-lang="zh">卧室照明</span>
+        <span data-lang="tw">臥室照明</span>
+      </div>
+      <div class="card-body">
+        <div class="info-note" style="margin-bottom:12px;">
+          <span data-lang="ja">&#x26a0;&#xfe0f; 壁スイッチをONにした後、リモコンの「点灯」ボタンを押してください。</span>
+          <span data-lang="en">&#x26a0;&#xfe0f; After turning on the wall switch, press the "Light On" button on the remote.</span>
+          <span data-lang="ko">&#x26a0;&#xfe0f; 벽 스위치를 켠 후, 리모컨의 "켜기" 버튼을 눌러주세요.</span>
+          <span data-lang="zh">&#x26a0;&#xfe0f; 打开墙壁开关后，请按遥控器上的"开灯"按钮。</span>
+          <span data-lang="tw">&#x26a0;&#xfe0f; 打開牆壁開關後，請按遙控器上的「開燈」按鈕。</span>
+        </div>
+        <div>
+          <img data-lang="en" src="images/light-remote-en.jpg" alt="Bedroom Light Remote Guide (English)" style="width:100%;border-radius:8px;">
+          <img data-lang="ko" src="images/light-remote-ko.jpg" alt="침실 조명 리모컨 안내" style="width:100%;border-radius:8px;">
+          <img data-lang="zh" src="images/light-remote-zh.jpg" alt="卧室照明遥控器指南" style="width:100%;border-radius:8px;">
+          <img data-lang="tw" src="images/light-remote-tw.jpg" alt="臥室照明遙控器指南" style="width:100%;border-radius:8px;">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#x1f4fa;
+        <span data-lang="ja">テレビ（リビング）</span>
+        <span data-lang="en">TV (Living Room)</span>
+        <span data-lang="ko">TV (거실)</span>
+        <span data-lang="zh">电视（客厅）</span>
+        <span data-lang="tw">電視（客廳）</span>
+      </div>
+      <div class="card-body">
+        <div>
+          <img data-lang="en" src="images/tv-remote-en.jpg" alt="TV Remote Guide (English)" style="width:100%;border-radius:8px;">
+          <img data-lang="ko" src="images/tv-remote-ko.jpg" alt="TV 리모컨 안내" style="width:100%;border-radius:8px;">
+          <img data-lang="zh" src="images/tv-remote-zh.jpg" alt="电视遥控器指南" style="width:100%;border-radius:8px;">
+          <img data-lang="tw" src="images/tv-remote-tw.jpg" alt="電視遙控器指南" style="width:100%;border-radius:8px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WIFI ==================== -->
+  <section id="wifi" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f4f6;</span> Wi-Fi</h2>
+    <div class="wifi-box">
+      <div style="margin-bottom:12px;">
+        <img src="images/wifi-qr.png" alt="Wi-Fi QR Code" style="width:160px;height:160px;border-radius:12px;background:#fff;padding:6px;">
+      </div>
+      <div class="wifi-row">
+        <div class="wifi-label">Network (SSID)</div>
+        <div class="wifi-value">LunaStay2.4G</div>
+      </div>
+      <div class="wifi-row">
+        <div class="wifi-label">Password</div>
+        <div class="wifi-value">Lunapass</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TRASH ==================== -->
+  <section id="trash" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f5d1;&#xfe0f;</span>
+      <span data-lang="ja">ゴミの捨て方</span>
+      <span data-lang="en">Trash Disposal</span>
+      <span data-lang="ko">쓰레기 분리수거</span>
+      <span data-lang="zh">垃圾分类</span>
+      <span data-lang="tw">垃圾分類</span>
+    </h2>
+    <div class="card">
+      <div class="card-body">
+        <p data-lang="ja" style="font-size:14px;margin-bottom:4px;">ゴミの分別方法は下記の通りです。替えのゴミ袋は<strong>キッチン下の棚</strong>に入っています。</p>
+        <p data-lang="en" style="font-size:14px;margin-bottom:4px;">Please sort trash as shown below. Extra trash bags are in the <strong>cabinet under the kitchen counter</strong>.</p>
+        <p data-lang="ko" style="font-size:14px;margin-bottom:4px;">아래와 같이 분리수거 해주세요. 여분의 쓰레기 봉투는 <strong>주방 하부 수납장</strong>에 있습니다.</p>
+        <p data-lang="zh" style="font-size:14px;margin-bottom:4px;">请按以下方式分类垃圾。备用垃圾袋在<strong>厨房下方的柜子</strong>里。</p>
+        <p data-lang="tw" style="font-size:14px;margin-bottom:4px;">請按以下方式分類垃圾。備用垃圾袋在<strong>廚房下方的櫃子</strong>裏。</p>
+        <div class="photo-grid single">
+          <img data-lang="ja" src="images/trash-bins-indoor.jpg" alt="Indoor trash bins" style="height:auto;max-height:320px;object-fit:contain;">
+          <img data-lang="en" src="images/trash-bins-indoor.jpg" alt="Indoor trash bins" style="height:auto;max-height:320px;object-fit:contain;">
+          <img data-lang="ko" src="images/trash-bins-indoor-ko.jpg" alt="Indoor trash bins" style="height:auto;max-height:320px;object-fit:contain;">
+          <img data-lang="zh" src="images/trash-bins-indoor-zh.jpg" alt="Indoor trash bins" style="height:auto;max-height:320px;object-fit:contain;">
+          <img data-lang="tw" src="images/trash-bins-indoor-tw.jpg" alt="Indoor trash bins" style="height:auto;max-height:320px;object-fit:contain;">
+        </div>
+        <div class="warning">
+          <span data-lang="ja">&#x1f4e6; ゴミ袋がいっぱいになったら <strong>ベランダのゴミストッカー</strong>に入れてください。<br>&#x26d4; <strong>ゴミストッカーの上には絶対に乗らないでください！</strong>破損・転落の危険があります。</span>
+          <span data-lang="en">&#x1f4e6; When full, put in the <strong>balcony trash stocker</strong>.<br>&#x26d4; <strong>NEVER climb on the trash stocker!</strong> Risk of damage and falling.</span>
+          <span data-lang="ko">&#x1f4e6; 가득 차면 <strong>발코니 보관함</strong>에 넣어주세요.<br>&#x26d4; <strong>쓰레기 보관함 위에 절대 올라가지 마세요!</strong> 파손 및 추락 위험이 있습니다.</span>
+          <span data-lang="zh">&#x1f4e6; 满了后放入<strong>阳台储物箱</strong>。<br>&#x26d4; <strong>绝对不要站在储物箱上！</strong>有损坏和坠落的危险。</span>
+          <span data-lang="tw">&#x1f4e6; 滿了後放入<strong>陽臺儲物箱</strong>。<br>&#x26d4; <strong>絕對不要站在儲物箱上！</strong>有損壞和墜落的危險。</span>
+        </div>
+        <div class="photo-grid single">
+          <img data-lang="ja" src="images/trash-stocker-balcony.jpg" alt="Balcony trash stocker" style="height:auto;max-height:280px;object-fit:contain;">
+          <img data-lang="en" src="images/trash-stocker-balcony.jpg" alt="Balcony trash stocker" style="height:auto;max-height:280px;object-fit:contain;">
+          <img data-lang="ko" src="images/trash-stocker-ko.jpg" alt="Balcony trash stocker" style="height:auto;max-height:280px;object-fit:contain;">
+          <img data-lang="zh" src="images/trash-stocker-zh.jpg" alt="Balcony trash stocker" style="height:auto;max-height:280px;object-fit:contain;">
+          <img data-lang="tw" src="images/trash-stocker-tw.jpg" alt="Balcony trash stocker" style="height:auto;max-height:280px;object-fit:contain;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TROUBLESHOOTING ==================== -->
+  <section id="trouble" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f527;</span>
+      <span data-lang="ja">困ったとき</span>
+      <span data-lang="en">Troubleshooting</span>
+      <span data-lang="ko">문제 발생 시</span>
+      <span data-lang="zh">遇到问题时</span>
+      <span data-lang="tw">遇到問題時</span>
+    </h2>
+    <div class="card">
+      <div class="card-header">&#x26a1;
+        <span data-lang="ja">ブレーカーが落ちた場合</span>
+        <span data-lang="en">If the breaker trips</span>
+        <span data-lang="ko">차단기가 내려간 경우</span>
+        <span data-lang="zh">断路器跳闸时</span>
+        <span data-lang="tw">斷路器跳閘時</span>
+      </div>
+      <div class="card-body">
+        <p data-lang="ja" style="font-size:14px;">洗面所にあるブレーカーの蓋を開けて、下の画像の通りにスイッチを上げてください。</p>
+        <p data-lang="en" style="font-size:14px;">Open the breaker panel cover in the washroom and flip the switches up as shown in the image below.</p>
+        <p data-lang="ko" style="font-size:14px;">세면실에 있는 차단기 덮개를 열고, 아래 이미지와 같이 스위치를 올려주세요.</p>
+        <p data-lang="zh" style="font-size:14px;">打开洗手间的断路器面板盖，按照下图所示将开关推上去。</p>
+        <p data-lang="tw" style="font-size:14px;">打開洗手間的斷路器面板蓋，按照下圖所示將開關推上去。</p>
+        <img src="images/breaker-panel.jpg" alt="Breaker panel" style="width:100%;border-radius:8px;margin-top:8px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SHOPS ==================== -->
+  <section id="shops" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f3ea;</span>
+      <span data-lang="ja">周辺の便利なお店</span>
+      <span data-lang="en">Nearby Shops</span>
+      <span data-lang="ko">주변 편의시설</span>
+      <span data-lang="zh">周边便利设施</span>
+      <span data-lang="tw">周邊便利設施</span>
+    </h2>
+
+    <div class="card">
+      <div class="card-header">&#x1f3ea; Convenience Store</div>
+      <div class="card-body">
+        <ul class="place-list">
+          <li>
+            <div>
+              <span class="place-name" data-lang="ja">&#x1f3ea; <a href="https://maps.app.goo.gl/1wEZqznvQZTSjwAYA" target="_blank">セブン-イレブン 門前仲町駅西店</a></span>
+              <span class="place-name" data-lang="en">&#x1f3ea; <a href="https://maps.app.goo.gl/1wEZqznvQZTSjwAYA" target="_blank">7-Eleven Monzennakacho Sta. West</a></span>
+              <span class="place-name" data-lang="ko">&#x1f3ea; <a href="https://maps.app.goo.gl/1wEZqznvQZTSjwAYA" target="_blank">7-Eleven (몬젠나카초역 서쪽)</a></span>
+              <span class="place-name" data-lang="zh">&#x1f3ea; <a href="https://maps.app.goo.gl/1wEZqznvQZTSjwAYA" target="_blank">7-Eleven（门前仲町站西店）</a></span>
+              <span class="place-name" data-lang="tw">&#x1f3ea; <a href="https://maps.app.goo.gl/1wEZqznvQZTSjwAYA" target="_blank">7-Eleven（門前仲町站西店）</a></span>
+            </div>
+            <span class="place-dist" data-lang="ja">徒歩4分 / 24h</span>
+            <span class="place-dist" data-lang="en">4 min / 24h</span>
+            <span class="place-dist" data-lang="ko">4분 / 24h</span>
+            <span class="place-dist" data-lang="zh">4分钟 / 24h</span>
+            <span class="place-dist" data-lang="tw">4分鐘 / 24h</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#x1f6d2; Supermarket</div>
+      <div class="card-body">
+        <ul class="place-list">
+          <li>
+            <div>
+              <span class="place-name" data-lang="ja">&#x1f6d2; <a href="https://maps.app.goo.gl/7b68dFpfohpxVsyV8" target="_blank">まいばすけっと 江東永代2丁目店</a></span>
+              <span class="place-name" data-lang="en">&#x1f6d2; <a href="https://maps.app.goo.gl/7b68dFpfohpxVsyV8" target="_blank">My Basket (Koto Eitai 2-chome)</a></span>
+              <span class="place-name" data-lang="ko">&#x1f6d2; <a href="https://maps.app.goo.gl/7b68dFpfohpxVsyV8" target="_blank">마이바스켓 (고토 에이타이 2초메점)</a></span>
+              <span class="place-name" data-lang="zh">&#x1f6d2; <a href="https://maps.app.goo.gl/7b68dFpfohpxVsyV8" target="_blank">My Basket（江东永代2丁目店）</a></span>
+              <span class="place-name" data-lang="tw">&#x1f6d2; <a href="https://maps.app.goo.gl/7b68dFpfohpxVsyV8" target="_blank">My Basket（江東永代2丁目店）</a></span>
+            </div>
+            <span class="place-dist" data-lang="ja">徒歩7分 / 8-23時</span>
+            <span class="place-dist" data-lang="en">7 min / 8AM-11PM</span>
+            <span class="place-dist" data-lang="ko">7분 / 8-23시</span>
+            <span class="place-dist" data-lang="zh">7分钟 / 8-23点</span>
+            <span class="place-dist" data-lang="tw">7分鐘 / 8-23點</span>
+          </li>
+          <li>
+            <div>
+              <span class="place-name" data-lang="ja">&#x1f6d2; <a href="https://maps.app.goo.gl/tCyN5isLw9RL63iK9" target="_blank">赤札堂 深川店</a></span>
+              <span class="place-name" data-lang="en">&#x1f6d2; <a href="https://maps.app.goo.gl/tCyN5isLw9RL63iK9" target="_blank">Akafudado (large supermarket + 100 yen shop)</a></span>
+              <span class="place-name" data-lang="ko">&#x1f6d2; <a href="https://maps.app.goo.gl/tCyN5isLw9RL63iK9" target="_blank">아카후다도 (대형 슈퍼 + 100엔샵)</a></span>
+              <span class="place-name" data-lang="zh">&#x1f6d2; <a href="https://maps.app.goo.gl/tCyN5isLw9RL63iK9" target="_blank">赤札堂（大型超市 + 百元店）</a></span>
+              <span class="place-name" data-lang="tw">&#x1f6d2; <a href="https://maps.app.goo.gl/tCyN5isLw9RL63iK9" target="_blank">赤札堂（大型超市 + 百元店）</a></span>
+            </div>
+            <span class="place-dist" data-lang="ja">徒歩10分 / 10-22時</span>
+            <span class="place-dist" data-lang="en">10 min / 10AM-10PM</span>
+            <span class="place-dist" data-lang="ko">10분 / 10-22시</span>
+            <span class="place-dist" data-lang="zh">10分钟 / 10-22点</span>
+            <span class="place-dist" data-lang="tw">10分鐘 / 10-22點</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#x1f48a; Drugstore</div>
+      <div class="card-body">
+        <ul class="place-list">
+          <li>
+            <span class="place-name" data-lang="ja">&#x1f48a; <a href="https://maps.app.goo.gl/Z38r7CS3u17cGaKL9" target="_blank">くすりの福太郎 門前仲町店</a></span>
+            <span class="place-name" data-lang="en">&#x1f48a; <a href="https://maps.app.goo.gl/Z38r7CS3u17cGaKL9" target="_blank">Kusuri no Fukutaro (Drugstore)</a></span>
+            <span class="place-name" data-lang="ko">&#x1f48a; <a href="https://maps.app.goo.gl/Z38r7CS3u17cGaKL9" target="_blank">쿠스리노 후쿠타로 (약국)</a></span>
+            <span class="place-name" data-lang="zh">&#x1f48a; <a href="https://maps.app.goo.gl/Z38r7CS3u17cGaKL9" target="_blank">药之福太郎 门前仲町店</a></span>
+            <span class="place-name" data-lang="tw">&#x1f48a; <a href="https://maps.app.goo.gl/Z38r7CS3u17cGaKL9" target="_blank">藥之福太郎 門前仲町店</a></span>
+            <span class="place-dist" data-lang="ja">徒歩7分 / 9-22時</span>
+            <span class="place-dist" data-lang="en">7 min / 9AM-10PM</span>
+            <span class="place-dist" data-lang="ko">7분 / 9-22시</span>
+            <span class="place-dist" data-lang="zh">7分钟 / 9-22点</span>
+            <span class="place-dist" data-lang="tw">7分鐘 / 9-22點</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#x1f455; Coin Laundry</div>
+      <div class="card-body">
+        <ul class="place-list">
+          <li>
+            <span class="place-name"><a href="https://maps.app.goo.gl/FxHXHXDFAg145nrW6" target="_blank">&#x1f455; Coin Laundry</a></span>
+            <span class="place-dist" data-lang="ja">徒歩3分 / 24h</span>
+            <span class="place-dist" data-lang="en">3 min / 24h</span>
+            <span class="place-dist" data-lang="ko">3분 / 24h</span>
+            <span class="place-dist" data-lang="zh">3分钟 / 24h</span>
+            <span class="place-dist" data-lang="tw">3分鐘 / 24h</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESTAURANTS ==================== -->
+  <section id="restaurants" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f37d;&#xfe0f;</span>
+      <span data-lang="ja">オススメ飲食店</span>
+      <span data-lang="en">Recommended Restaurants</span>
+      <span data-lang="ko">추천 맛집</span>
+      <span data-lang="zh">推荐餐厅</span>
+      <span data-lang="tw">推薦餐廳</span>
+    </h2>
+
+    <div class="restaurant-card">
+      <div class="r-name">1. 酒肆 一村</div>
+      <div class="r-genre" data-lang="ja">&#x1f37a; 居酒屋</div><div class="r-genre" data-lang="en">&#x1f37a; Izakaya</div><div class="r-genre" data-lang="ko">&#x1f37a; 이자카야</div><div class="r-genre" data-lang="zh">&#x1f37a; 居酒屋</div><div class="r-genre" data-lang="tw">&#x1f37a; 居酒屋</div>
+      <div class="r-desc" data-lang="ja">落ち着いた雰囲気で旬の肴と日本酒を楽しめる大人の隠れ家。</div>
+      <div class="r-desc" data-lang="en">Quiet hideaway for seasonal dishes and premium sake.</div>
+      <a class="r-link" href="https://maps.app.goo.gl/PBveHws4j112UCpW7" target="_blank">&#x1f4cd; Google Maps</a>
+    </div>
+
+    <div class="restaurant-card">
+      <div class="r-name">2. ふうすけ</div>
+      <div class="r-genre" data-lang="ja">&#x1f3e3; 海鮮・日本料理</div><div class="r-genre" data-lang="en">&#x1f3e3; Seafood / Japanese</div><div class="r-genre" data-lang="ko">&#x1f3e3; 해산물 / 일식</div><div class="r-genre" data-lang="zh">&#x1f3e3; 海鲜 / 日料</div><div class="r-genre" data-lang="tw">&#x1f3e3; 海鮮 / 日料</div>
+      <div class="r-desc" data-lang="ja">新鮮な海鮮と和食が自慢！何度も通いたくなるお店。</div>
+      <div class="r-desc" data-lang="en">Fresh seafood and Japanese cuisine - a place you'll want to revisit.</div>
+      <a class="r-link" href="https://maps.app.goo.gl/k416FQWjVG6eWe4W8" target="_blank">&#x1f4cd; Google Maps</a>
+    </div>
+
+    <div class="restaurant-card">
+      <div class="r-name">3. いり江</div>
+      <div class="r-genre" data-lang="ja">&#x1f367; 甘味処・かき氷</div><div class="r-genre" data-lang="en">&#x1f367; Sweets / Shaved Ice</div><div class="r-genre" data-lang="ko">&#x1f367; 일본 디저트 / 빙수</div><div class="r-genre" data-lang="zh">&#x1f367; 甜品 / 刨冰</div><div class="r-genre" data-lang="tw">&#x1f367; 甜品 / 刨冰</div>
+      <div class="r-desc" data-lang="ja">ふわふわのかき氷とあんみつが人気の老舗甘味処。ほっと一息に。</div>
+      <div class="r-desc" data-lang="en">Classic Japanese sweets shop famous for fluffy shaved ice and anmitsu.</div>
+      <a class="r-link" href="https://maps.app.goo.gl/Ny2qoSW3XDwk82Xj7" target="_blank">&#x1f4cd; Google Maps</a>
+    </div>
+
+    <div class="restaurant-card">
+      <div class="r-name">4. 鉄板もんじゃ&お好み焼き ぽんぽこ八兵衛</div>
+      <div class="r-genre" data-lang="ja">&#x1f95e; もんじゃ焼き・お好み焼き</div><div class="r-genre" data-lang="en">&#x1f95e; Monjayaki / Okonomiyaki</div><div class="r-genre" data-lang="ko">&#x1f95e; 몬자야키 / 오코노미야키</div><div class="r-genre" data-lang="zh">&#x1f95e; 文字烧 / 大阪烧</div><div class="r-genre" data-lang="tw">&#x1f95e; 文字燒 / 大阪燒</div>
+      <div class="r-desc" data-lang="ja">熱々の鉄板で楽しむ本格もんじゃ焼きとお好み焼き。仲間とわいわい囲むのにぴったりのお店です。</div>
+      <div class="r-desc" data-lang="en">Authentic monjayaki and okonomiyaki on a sizzling hot plate. Perfect for a fun group meal!</div>
+      <a class="r-link" href="https://maps.app.goo.gl/5we4q9dr7s4ATgqL6" target="_blank">&#x1f4cd; Google Maps</a>
+    </div>
+
+    <div class="restaurant-card">
+      <div class="r-name">5. 東京担担麺本舗 ゴマ屋</div>
+      <div class="r-genre" data-lang="ja">&#x1f35c; 担担麺</div><div class="r-genre" data-lang="en">&#x1f35c; Tantanmen (Spicy Sesame Noodles)</div><div class="r-genre" data-lang="ko">&#x1f35c; 탄탄멘</div><div class="r-genre" data-lang="zh">&#x1f35c; 担担面</div><div class="r-genre" data-lang="tw">&#x1f35c; 擔擔麵</div>
+      <div class="r-desc" data-lang="ja">濃厚なゴマの風味が香る本格担担麺の専門店。辛さも選べて、クセになる美味しさです。</div>
+      <div class="r-desc" data-lang="en">Rich sesame-flavored tantanmen specialty shop. Choose your spice level - addictively delicious!</div>
+      <a class="r-link" href="https://maps.app.goo.gl/qgjkQ8ayq6j2qx6G9" target="_blank">&#x1f4cd; Google Maps</a>
+    </div>
+
+    <div class="restaurant-card">
+      <div class="r-name">6. 門前仲町ワインハウス BALLONDOR</div>
+      <div class="r-genre" data-lang="ja">&#x1f377; ワインバー・ビストロ</div><div class="r-genre" data-lang="en">&#x1f377; Wine Bar / Bistro</div><div class="r-genre" data-lang="ko">&#x1f377; 와인바 / 비스트로</div><div class="r-genre" data-lang="zh">&#x1f377; 红酒吧 / 小酒馆</div><div class="r-genre" data-lang="tw">&#x1f377; 紅酒吧 / 小酒館</div>
+      <div class="r-desc" data-lang="ja">厳選ワインとこだわりの料理が楽しめるワインハウス。落ち着いた雰囲気でゆったりとした時間をお過ごしいただけます。</div>
+      <div class="r-desc" data-lang="en">A wine house with carefully selected wines and refined cuisine. Enjoy a relaxed evening in a cozy atmosphere.</div>
+      <a class="r-link" href="https://maps.app.goo.gl/CnJYZTtvNdRsVsSS8" target="_blank">&#x1f4cd; Google Maps</a>
+    </div>
+
+    <div class="info-note">
+      <span data-lang="ja">&#x1f4a1; 全て人気店です。営業時間や定休日はあらかじめご確認ください。</span>
+      <span data-lang="en">&#x1f4a1; All popular spots. Please check hours and holidays before visiting.</span>
+      <span data-lang="ko">&#x1f4a1; 모두 인기 맛집입니다. 영업시간과 휴무일을 미리 확인해주세요.</span>
+      <span data-lang="zh">&#x1f4a1; 均为人气店铺，请提前确认营业时间和休息日。</span>
+      <span data-lang="tw">&#x1f4a1; 均爲人氣店鋪，請提前確認營業時間和休息日。</span>
+    </div>
+  </section>
+
+  <!-- ==================== TRANSIT ==================== -->
+  <section id="transit" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f686;</span>
+      <span data-lang="ja">各スポットへの電車アクセス</span>
+      <span data-lang="en">Train Access to Major Spots</span>
+      <span data-lang="ko">주요 관광지 전철 소요시간</span>
+      <span data-lang="zh">各景点电车所需时间</span>
+      <span data-lang="tw">各景點電車所需時間</span>
+    </h2>
+
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x1f686; 門前仲町駅から</span>
+        <span data-lang="en">&#x1f686; From Monzennakacho Sta.</span>
+        <span data-lang="ko">&#x1f686; 몬젠나카초역에서</span>
+        <span data-lang="zh">&#x1f686; 从门前仲町站</span>
+        <span data-lang="tw">&#x1f686; 從門前仲町站</span>
+      </div>
+      <div class="card-body">
+        <div data-lang="ja"><div class="transit-grid">
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/築地市場駅/" target="_blank" class="dest">築地市場駅</a><span class="time">約5分（乗換なし）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/東京駅/" target="_blank" class="dest">東京駅</a><span class="time">約10分（乗換なし）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/銀座駅/" target="_blank" class="dest">銀座駅</a><span class="time">約10分（乗換1回）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/秋葉原駅/" target="_blank" class="dest">秋葉原駅</a><span class="time">約15分（乗換1〜2回）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/上野駅/" target="_blank" class="dest">上野駅</a><span class="time">約15分（乗換1回）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/六本木駅/" target="_blank" class="dest">六本木駅</a><span class="time">約20分（乗換なし）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/浅草駅/" target="_blank" class="dest">浅草駅</a><span class="time">約20分（乗換0〜1回）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/押上駅/" target="_blank" class="dest">押上駅（スカイツリー）</a><span class="time">約20分（乗換1回）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/新宿駅/" target="_blank" class="dest">新宿駅</a><span class="time">約25分（乗換なし）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/渋谷駅/" target="_blank" class="dest">渋谷駅</a><span class="time">約25分（乗換1回）</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/原宿駅/" target="_blank" class="dest">原宿駅</a><span class="time">約30分（乗換1回）</span></div>
+          <div class="transit-item highlight"><a href="https://www.google.com/maps/dir/門前仲町駅/東京ディズニーランド/" target="_blank" class="dest">東京ディズニーランド</a><span class="time">約30〜60分（乗換1〜2回）</span></div>
+          <div class="transit-item highlight"><a href="https://www.google.com/maps/dir/門前仲町駅/東京ディズニーシー/" target="_blank" class="dest">東京ディズニーシー</a><span class="time">約40〜60分（乗換1〜2回）</span></div>
+        </div></div>
+        <div class="transit-grid" data-hide-lang="ja">
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/築地市場駅/" target="_blank" class="dest">Tsukiji</a><span class="time">~5 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/東京駅/" target="_blank" class="dest">Tokyo</a><span class="time">~10 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/銀座駅/" target="_blank" class="dest">Ginza</a><span class="time">~10 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/秋葉原駅/" target="_blank" class="dest">Akihabara</a><span class="time">~15 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/上野駅/" target="_blank" class="dest">Ueno</a><span class="time">~15 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/六本木駅/" target="_blank" class="dest">Roppongi</a><span class="time">~20 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/浅草駅/" target="_blank" class="dest">Asakusa</a><span class="time">~20 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/押上駅/" target="_blank" class="dest">Skytree</a><span class="time">~20 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/新宿駅/" target="_blank" class="dest">Shinjuku</a><span class="time">~25 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/渋谷駅/" target="_blank" class="dest">Shibuya</a><span class="time">~25 min</span></div>
+          <div class="transit-item"><a href="https://www.google.com/maps/dir/門前仲町駅/原宿駅/" target="_blank" class="dest">Harajuku</a><span class="time">~30 min</span></div>
+          <div class="transit-item highlight"><a href="https://www.google.com/maps/dir/門前仲町駅/東京ディズニーランド/" target="_blank" class="dest">Disneyland</a><span class="time">30-60 min</span></div>
+          <div class="transit-item highlight"><a href="https://www.google.com/maps/dir/門前仲町駅/東京ディズニーシー/" target="_blank" class="dest">DisneySea</a><span class="time">40-60 min</span></div>
+        </div>
+        <div class="info-note" style="margin-top:12px;">
+          <span data-lang="ja">&#x1f4a1; 乗換案内: <a href="https://www.jorudan.co.jp/norikae/" target="_blank">Jorudan</a> | お得なパス: <a href="https://greater-tokyo-pass.jp/" target="_blank">Greater Tokyo Pass</a></span>
+          <span data-lang="en">&#x1f4a1; Route planner: <a href="https://world.jorudan.co.jp/mln/en/?sub_lang=ja" target="_blank">Jorudan (EN)</a> | Discount pass: <a href="https://greater-tokyo-pass.jp/" target="_blank">Greater Tokyo Pass</a></span>
+          <span data-lang="ko">&#x1f4a1; 환승 안내: <a href="https://world.jorudan.co.jp/mln/en/?sub_lang=ja" target="_blank">Jorudan</a> | 할인 패스: <a href="https://greater-tokyo-pass.jp/" target="_blank">Greater Tokyo Pass</a></span>
+          <span data-lang="zh">&#x1f4a1; 换乘查询: <a href="https://world.jorudan.co.jp/mln/en/?sub_lang=ja" target="_blank">Jorudan</a> | 优惠通票: <a href="https://greater-tokyo-pass.jp/" target="_blank">Greater Tokyo Pass</a></span>
+          <span data-lang="tw">&#x1f4a1; 換乘查詢: <a href="https://world.jorudan.co.jp/mln/en/?sub_lang=ja" target="_blank">Jorudan</a> | 優惠通票: <a href="https://greater-tokyo-pass.jp/" target="_blank">Greater Tokyo Pass</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LUGGAGE ==================== -->
+  <section id="luggage" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f9f3;</span>
+      <span data-lang="ja">荷物預かり・配送</span>
+      <span data-lang="en">Luggage Storage &amp; Delivery</span>
+      <span data-lang="ko">짐 보관 / 배송</span>
+      <span data-lang="zh">行李寄存 / 配送</span>
+      <span data-lang="tw">行李寄存 / 配送</span>
+    </h2>
+
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x1f4bc; 荷物預かりサービス</span>
+        <span data-lang="en">&#x1f4bc; Luggage Storage</span>
+        <span data-lang="ko">&#x1f4bc; 짐 보관 서비스</span>
+        <span data-lang="zh">&#x1f4bc; 行李寄存服务</span>
+        <span data-lang="tw">&#x1f4bc; 行李寄存服務</span>
+      </div>
+      <div class="card-body">
+        <table class="guide-table">
+          <tr>
+            <td data-lang="ja"><strong><a href="https://bounce.com/" target="_blank">バウンス</a></strong><br>&#xa5;275~/日・全国5,000ヶ所・アプリ予約</td>
+            <td data-lang="en"><strong><a href="https://bounce.com/" target="_blank">Bounce</a></strong><br>From &#xa5;275/day - 5,000 locations - App booking</td>
+            <td data-lang="ko"><strong><a href="https://bounce.com/" target="_blank">Bounce</a></strong><br>&#xa5;275~/일 - 5,000곳 - 앱 예약</td>
+            <td data-lang="zh"><strong><a href="https://bounce.com/" target="_blank">Bounce</a></strong><br>&#xa5;275~/天 - 5,000地点 - App预约</td>
+            <td data-lang="tw"><strong><a href="https://bounce.com/" target="_blank">Bounce</a></strong><br>&#xa5;275~/天 - 5,000地點 - App預約</td>
+          </tr>
+          <tr>
+            <td data-lang="ja"><strong><a href="https://cloak.ecbo.io/" target="_blank">エクボクローク</a></strong><br>リュック&#xa5;500/日・スーツケース&#xa5;800/日</td>
+            <td data-lang="en"><strong><a href="https://cloak.ecbo.io/en" target="_blank">ecbo cloak</a></strong><br>Bag &#xa5;500/day - Suitcase &#xa5;800/day</td>
+            <td data-lang="ko"><strong><a href="https://cloak.ecbo.io/en" target="_blank">ecbo cloak</a></strong><br>배낭 &#xa5;500/일 - 캐리어 &#xa5;800/일</td>
+            <td data-lang="zh"><strong><a href="https://cloak.ecbo.io/en" target="_blank">ecbo cloak</a></strong><br>背包&#xa5;500/天 - 行李箱&#xa5;800/天</td>
+            <td data-lang="tw"><strong><a href="https://cloak.ecbo.io/en" target="_blank">ecbo cloak</a></strong><br>揹包&#xa5;500/天 - 行李箱&#xa5;800/天</td>
+          </tr>
+          <tr>
+            <td data-lang="ja"><strong><a href="https://www.sagawa-exp.co.jp/ttk/service/price.html?s=09#tenimotsu" target="_blank">佐川急便</a></strong><br>&#xa5;800~/日（東京駅、スカイツリー、羽田等）</td>
+            <td data-lang="en"><strong><a href="https://www.sagawa-exp.co.jp/ttk/service/price.html?s=09#tenimotsu" target="_blank">Sagawa Express</a></strong><br>&#xa5;800+/day (Tokyo Sta., Skytree, Haneda etc.)</td>
+            <td data-lang="ko"><strong><a href="https://www.sagawa-exp.co.jp/ttk/service/price.html?s=09#tenimotsu" target="_blank">Sagawa Express</a></strong><br>&#xa5;800~/일 (도쿄역, 스카이트리, 하네다 등)</td>
+            <td data-lang="zh"><strong><a href="https://www.sagawa-exp.co.jp/ttk/service/price.html?s=09#tenimotsu" target="_blank">Sagawa Express</a></strong><br>&#xa5;800~/天（东京站、晴空塔、羽田等）</td>
+            <td data-lang="tw"><strong><a href="https://www.sagawa-exp.co.jp/ttk/service/price.html?s=09#tenimotsu" target="_blank">Sagawa Express</a></strong><br>&#xa5;800~/天（東京站、晴空塔、羽田等）</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span data-lang="ja">&#x1f4e6; 空港宅急便</span>
+        <span data-lang="en">&#x1f4e6; Airport Delivery (Kuroneko Yamato)</span>
+        <span data-lang="ko">&#x1f4e6; 공항 택배</span>
+        <span data-lang="zh">&#x1f4e6; 机场快递</span>
+        <span data-lang="tw">&#x1f4e6; 機場快遞</span>
+      </div>
+      <div class="card-body">
+        <p data-lang="ja" style="font-size:13px;"><a href="https://www.kuronekoyamato.co.jp/ytc/en/send/services/airport/" target="_blank">&#x1f4e6; 空港宅急便サービス</a> | <a href="https://locations.kuronekoyamato.co.jp/p/yamato01/" target="_blank">&#x1f50d; 近くの営業所を検索</a></p>
+        <p data-lang="en" style="font-size:13px;"><a href="https://www.kuronekoyamato.co.jp/ytc/en/send/services/airport/" target="_blank">&#x1f4e6; Airport delivery service</a> | <a href="https://locations.kuronekoyamato.co.jp/p/yamato01/" target="_blank">&#x1f50d; Find nearby office</a></p>
+        <p data-lang="ko" style="font-size:13px;"><a href="https://www.kuronekoyamato.co.jp/ytc/en/send/services/airport/" target="_blank">&#x1f4e6; 공항 택배 서비스</a> | <a href="https://locations.kuronekoyamato.co.jp/p/yamato01/" target="_blank">&#x1f50d; 가까운 영업소 검색</a></p>
+        <p data-lang="zh" style="font-size:13px;"><a href="https://www.kuronekoyamato.co.jp/ytc/en/send/services/airport/" target="_blank">&#x1f4e6; 机场快递服务</a> | <a href="https://locations.kuronekoyamato.co.jp/p/yamato01/" target="_blank">&#x1f50d; 搜索附近营业所</a></p>
+        <p data-lang="tw" style="font-size:13px;"><a href="https://www.kuronekoyamato.co.jp/ytc/en/send/services/airport/" target="_blank">&#x1f4e6; 機場快遞服務</a> | <a href="https://locations.kuronekoyamato.co.jp/p/yamato01/" target="_blank">&#x1f50d; 搜索附近營業所</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RULES ==================== -->
+  <section id="rules" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f4cb;</span>
+      <span data-lang="ja">ハウスルール</span>
+      <span data-lang="en">House Rules</span>
+      <span data-lang="ko">이용 규칙</span>
+      <span data-lang="zh">房屋规则</span>
+      <span data-lang="tw">房屋規則</span>
+    </h2>
+    <div class="card">
+      <div class="card-body">
+        <table class="guide-table">
+          <tbody>
+            <tr data-lang="ja"><td>&#x1f6ad;</td><td><strong>全室禁煙</strong>です（ベランダ含む）</td></tr>
+            <tr data-lang="ja"><td>&#x1f507;</td><td>夜<strong>22時以降</strong>は静かにお願いします</td></tr>
+            <tr data-lang="ja"><td>&#x1f6ab;</td><td><strong>パーティー禁止</strong></td></tr>
+            <tr data-lang="ja"><td>&#x1f5d1;&#xfe0f;</td><td>チェックアウト時はゴミをまとめてください</td></tr>
+            <tr data-lang="ja"><td>&#x1f511;</td><td>外出時は鍵を必ず閉めてください</td></tr>
+            <tr data-lang="ja"><td>&#x1f6ab;</td><td><strong>風俗・性的サービス</strong>に関わる行為は固くお断りしております</td></tr>
+            <tr data-lang="ja"><td>&#x1f4e6;</td><td>忘れ物は<strong>貴重品以外は処分</strong>させていただきます</td></tr>
+            <tr data-lang="en"><td>&#x1f6ad;</td><td><strong>No smoking</strong> (including balcony)</td></tr>
+            <tr data-lang="en"><td>&#x1f507;</td><td>Quiet hours after <strong>10 PM</strong></td></tr>
+            <tr data-lang="en"><td>&#x1f6ab;</td><td><strong>No parties</strong></td></tr>
+            <tr data-lang="en"><td>&#x1f5d1;&#xfe0f;</td><td>Gather trash at checkout</td></tr>
+            <tr data-lang="en"><td>&#x1f511;</td><td>Always lock the door when going out</td></tr>
+            <tr data-lang="en"><td>&#x1f6ab;</td><td><strong>Sexual services and adult entertainment</strong> activities are strictly prohibited</td></tr>
+            <tr data-lang="en"><td>&#x1f4e6;</td><td>Left-behind items (except valuables) will be <strong>disposed of</strong></td></tr>
+            <tr data-lang="ko"><td>&#x1f6ad;</td><td><strong>전실 금연</strong> (발코니 포함)</td></tr>
+            <tr data-lang="ko"><td>&#x1f507;</td><td><strong>밤 10시</strong> 이후 조용히</td></tr>
+            <tr data-lang="ko"><td>&#x1f6ab;</td><td><strong>파티 금지</strong></td></tr>
+            <tr data-lang="ko"><td>&#x1f5d1;&#xfe0f;</td><td>체크아웃 시 쓰레기 정리</td></tr>
+            <tr data-lang="ko"><td>&#x1f511;</td><td>외출 시 문 잠금</td></tr>
+            <tr data-lang="ko"><td>&#x1f6ab;</td><td><strong>성적 서비스 및 풍속 관련 행위</strong>는 엄격히 금지됩니다</td></tr>
+            <tr data-lang="ko"><td>&#x1f4e6;</td><td>분실물은 <strong>귀중품 외에는 폐기</strong>됩니다</td></tr>
+            <tr data-lang="zh"><td>&#x1f6ad;</td><td><strong>全室禁烟</strong>（含阳台）</td></tr>
+            <tr data-lang="tw"><td>&#x1f6ad;</td><td><strong>全室禁菸</strong>（含陽臺）</td></tr>
+            <tr data-lang="zh"><td>&#x1f507;</td><td>晚<strong>10点后</strong>请保持安静</td></tr>
+            <tr data-lang="tw"><td>&#x1f507;</td><td>晚<strong>10點後</strong>請保持安靜</td></tr>
+            <tr data-lang="zh"><td>&#x1f6ab;</td><td><strong>禁止聚会</strong></td></tr>
+            <tr data-lang="tw"><td>&#x1f6ab;</td><td><strong>禁止聚會</strong></td></tr>
+            <tr data-lang="zh"><td>&#x1f5d1;&#xfe0f;</td><td>退房时请整理垃圾</td></tr>
+            <tr data-lang="tw"><td>&#x1f5d1;&#xfe0f;</td><td>退房時請整理垃圾</td></tr>
+            <tr data-lang="zh"><td>&#x1f511;</td><td>外出时请锁门</td></tr>
+            <tr data-lang="zh"><td>&#x1f6ab;</td><td><strong>严禁色情服务及风俗相关行为</strong></td></tr>
+            <tr data-lang="zh"><td>&#x1f4e6;</td><td>遗留物品<strong>除贵重物品外将被处理</strong></td></tr>
+            <tr data-lang="tw"><td>&#x1f511;</td><td>外出時請鎖門</td></tr>
+            <tr data-lang="tw"><td>&#x1f6ab;</td><td><strong>嚴禁色情服務及風俗相關行為</strong></td></tr>
+            <tr data-lang="tw"><td>&#x1f4e6;</td><td>遺留物品<strong>除貴重物品外將被處理</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CHECKOUT ==================== -->
+  <section id="checkout" class="section">
+    <h2 class="section-title"><span class="icon">&#x2705;</span>
+      <span data-lang="ja">チェックアウト</span>
+      <span data-lang="en">Check-out</span>
+      <span data-lang="ko">체크아웃</span>
+      <span data-lang="zh">退房</span>
+      <span data-lang="tw">退房</span>
+    </h2>
+    <div class="card">
+      <div class="card-header">&#x23f0; Check-out: 10:00</div>
+      <div class="card-body">
+        <ul class="checklist" data-lang="ja">
+          <li>エアコン・照明をすべてOFF</li>
+          <li>すべての窓を閉める</li>
+          <li>ゴミをまとめる（分別してゴミストッカーへ）</li>
+          <li>使った食器を洗う</li>
+          <li>鍵を所定の位置に戻す</li>
+        </ul>
+        <ul class="checklist" data-lang="en">
+          <li>Turn off all AC &amp; lights</li>
+          <li>Close all windows</li>
+          <li>Gather trash (sorted, to balcony stocker)</li>
+          <li>Wash dishes you used</li>
+          <li>Return key to designated spot</li>
+        </ul>
+        <ul class="checklist" data-lang="ko">
+          <li>에어컨 &amp; 조명 모두 OFF</li>
+          <li>모든 창문 닫기</li>
+          <li>쓰레기 정리 (분리 후 발코니로)</li>
+          <li>사용한 식기 세척</li>
+          <li>열쇠 지정 위치에 반납</li>
+        </ul>
+        <ul class="checklist" data-lang="zh">
+          <li>关闭所有空调和照明</li>
+          <li>关闭所有窗户</li>
+          <li>整理垃圾（分类后放到阳台）</li>
+          <li>清洗使用过的餐具</li>
+          <li>将钥匙归还到指定位置</li>
+        </ul>
+        <ul class="checklist" data-lang="tw">
+          <li>關閉所有空調和照明</li>
+          <li>關閉所有窗戶</li>
+          <li>整理垃圾（分類後放到陽臺）</li>
+          <li>清洗使用過的餐具</li>
+          <li>將鑰匙歸還到指定位置</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EMERGENCY ==================== -->
+  <section id="emergency" class="section">
+    <h2 class="section-title"><span class="icon">&#x1f4de;</span>
+      <span data-lang="ja">緊急連絡先</span>
+      <span data-lang="en">Emergency</span>
+      <span data-lang="ko">긴급 연락처</span>
+      <span data-lang="zh">紧急联系方式</span>
+      <span data-lang="tw">緊急聯繫方式</span>
+    </h2>
+    <div class="emergency-grid">
+      <div class="emergency-item">
+        <div class="em-icon">&#x1f464;</div>
+        <div>
+          <div class="em-label">Host (Kiichi and Hikari)</div>
+          <div class="em-value">Airbnb Message</div>
+        </div>
+      </div>
+      <div class="emergency-item">
+        <div class="em-icon">&#x1f693;</div>
+        <div>
+          <div class="em-label" data-lang="ja">警察</div><div class="em-label" data-lang="en">Police</div><div class="em-label" data-lang="ko">경찰</div><div class="em-label" data-lang="zh">警察</div><div class="em-label" data-lang="tw">警察</div>
+          <div class="em-value"><a href="tel:110">110</a></div>
+        </div>
+      </div>
+      <div class="emergency-item">
+        <div class="em-icon">&#x1f691;</div>
+        <div>
+          <div class="em-label" data-lang="ja">救急・消防</div><div class="em-label" data-lang="en">Ambulance / Fire</div><div class="em-label" data-lang="ko">구급 / 소방</div><div class="em-label" data-lang="zh">急救 / 消防</div><div class="em-label" data-lang="tw">急救 / 消防</div>
+          <div class="em-value"><a href="tel:119">119</a></div>
+        </div>
+      </div>
+      <div class="emergency-item">
+        <div class="em-icon">&#x1f3e5;</div>
+        <div>
+          <div class="em-label" data-lang="ja">医療機関案内（多言語）</div><div class="em-label" data-lang="en">Medical Info (multilingual)</div><div class="em-label" data-lang="ko">의료기관 안내 (다국어)</div><div class="em-label" data-lang="zh">医疗机构指南（多语言）</div><div class="em-label" data-lang="tw">醫療機構指南（多語言）</div>
+          <div class="em-value"><a href="https://www.jnto.go.jp/emergency/eng/mi_guide.html" target="_blank">JNTO Medical Guide</a></div>
+        </div>
+      </div>
+      <div class="emergency-item">
+        <div class="em-icon">&#x1f3e5;</div>
+        <div>
+          <div class="em-label" data-lang="ja">夜間往診サービス</div><div class="em-label" data-lang="en">Night house call service</div><div class="em-label" data-lang="ko">야간 왕진 서비스</div><div class="em-label" data-lang="zh">夜间出诊服务</div><div class="em-label" data-lang="tw">夜間出診服務</div>
+          <div class="em-value"><a href="https://piq.jp/lp/en/" target="_blank">piq.jp</a></div>
+        </div>
+      </div>
+      <div class="emergency-item">
+        <div class="em-icon">&#x1f6d1;</div>
+        <div>
+          <div class="em-label" data-lang="ja">最寄り避難場所</div><div class="em-label" data-lang="en">Nearest Evacuation</div><div class="em-label" data-lang="ko">최근 대피소</div><div class="em-label" data-lang="zh">最近避难所</div><div class="em-label" data-lang="tw">最近避難所</div>
+          <div class="em-value"><a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="ja">江東区臨海小学校（徒歩4分）</a><a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="en">Koto Rinkai Elementary (4 min)</a><a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="ko">고토구 린카이 초등학교 (4분)</a><a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="zh">江东区临海小学（4分钟）</a><a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="tw">江東區臨海小學（4分鐘）</a></div>
+          <div style="margin-top:8px;">
+            <img data-lang="ja" src="images/evacuation-map-ja.jpg" alt="避難所への地図" style="width:100%;border-radius:8px;">
+            <img data-lang="en" src="images/evacuation-map-en.jpg" alt="Evacuation map" style="width:100%;border-radius:8px;">
+            <img data-lang="ko" src="images/evacuation-map-ko.jpg" alt="대피소 지도" style="width:100%;border-radius:8px;">
+            <img data-lang="zh" src="images/evacuation-map-zh.jpg" alt="避难所地图" style="width:100%;border-radius:8px;">
+            <img data-lang="tw" src="images/evacuation-map-tw.jpg" alt="避難所地圖" style="width:100%;border-radius:8px;">
+          </div>
+          <div style="margin-top:6px;">
+            <a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="ja" style="font-size:13px;">&#x1f4cd; 詳しくはこちら（Google Maps）</a>
+            <a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="en" style="font-size:13px;">&#x1f4cd; More details (Google Maps)</a>
+            <a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="ko" style="font-size:13px;">&#x1f4cd; 자세히 보기 (Google Maps)</a>
+            <a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="zh" style="font-size:13px;">&#x1f4cd; 详情请看这里（Google Maps）</a>
+            <a href="https://www.google.co.jp/maps/dir/%E3%80%92135-0034+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E6%B0%B8%E4%BB%A3%EF%BC%92%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%95+%E5%A4%A7%E5%B9%B3%E3%83%93%E3%83%AB/%E6%B1%9F%E6%9D%B1%E5%8C%BA%E7%AB%8B%E8%87%A8%E6%B5%B7%E5%B0%8F%E5%AD%A6%E6%A0%A1%E3%80%81%E3%80%92135-0048+%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B1%9F%E6%9D%B1%E5%8C%BA%E9%96%80%E5%89%8D%E4%BB%B2%E7%94%BA%EF%BC%91%E4%B8%81%E7%9B%AE%EF%BC%91%E2%88%92%EF%BC%96/@35.6726707,139.7903001,18z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x6018896c778464d5:0xf75a950f86af4dc3!2m2!1d139.7901079!2d35.6725273!1m5!1m1!1s0x6018896cc969a3e7:0x886921b54dc9980c!2m2!1d139.7930673!2d35.6725246!3e2?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" data-lang="tw" style="font-size:13px;">&#x1f4cd; 詳情請看這裡（Google Maps）</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-note" style="margin-top:12px;">
+      <span data-lang="ja">&#x1f4de; 医療機関 外国語対応窓口: <strong>03-5285-8181</strong>（9:00〜） | <a href="https://www.fdma.go.jp/publication/portal/post1.html" target="_blank">119番の使い方（多言語パンフレット）</a></span>
+      <span data-lang="en">&#x1f4de; Medical hotline (multilingual): <strong>03-5285-8181</strong> (from 9:00) | <a href="https://www.fdma.go.jp/publication/portal/post1.html" target="_blank">How to call 119 (multilingual)</a></span>
+      <span data-lang="ko">&#x1f4de; 의료 상담 (다국어): <strong>03-5285-8181</strong> (9:00~) | <a href="https://www.fdma.go.jp/publication/portal/post1.html" target="_blank">119 이용법 (다국어)</a></span>
+      <span data-lang="zh">&#x1f4de; 医疗咨询热线（多语言）: <strong>03-5285-8181</strong>（9:00起） | <a href="https://www.fdma.go.jp/publication/portal/post1.html" target="_blank">119使用方法（多语言）</a></span>
+      <span data-lang="tw">&#x1f4de; 醫療諮詢熱線（多語言）: <strong>03-5285-8181</strong>（9:00起） | <a href="https://www.fdma.go.jp/publication/portal/post1.html" target="_blank">119使用方法（多語言）</a></span>
+    </div>
+  </section>
+
+  <div class="footer">
+    &copy; Luna stay Monnzennakacho &mdash; Thank you for staying with us!
+  </div>
+
+</div>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    const isInline = ['span','a'].includes(el.tagName.toLowerCase());
+    el.style.display = el.dataset.lang === lang ? (isInline ? 'inline' : 'block') : 'none';
+  });
+  document.querySelectorAll('[data-hide-lang]').forEach(el => {
+    el.style.display = el.dataset.hideLang.split(',').includes(lang) ? 'none' : '';
+  });
+}
+setLang('ja');
+document.querySelectorAll('.nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(link.getAttribute('href'));
+    if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 100, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
